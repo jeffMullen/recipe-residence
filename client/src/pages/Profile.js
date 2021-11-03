@@ -1,16 +1,11 @@
 import React from "react";
+import RecipeCard from "../components/RecipeCard";
 
 function Profile() {
 
     return (
         <>
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="card">
-                        <h2>Recipe</h2>
-                    </div>
-                </div>
-            </div>
+            <RecipeCard />
         </>
     )
 
