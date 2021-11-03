@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import './scss/index.scss'
+import './scss/index.scss';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 
