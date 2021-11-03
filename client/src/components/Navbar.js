@@ -1,11 +1,31 @@
 import React from 'react';
+import Navbar from 'react-bootstrap/Navbar';
 
-function Navbar() {
+import Nav from 'react-bootstrap/Nav';
+import Container from 'react-bootstrap/Container';
+
+function Navigation() {
 
 
     return (
         <>
-            <nav className="navbar navbar-expand-lg d-flex align-items-center">
+            <Navbar collapseOnSelect expand="lg" variant="light">
+                <Container>
+                    <Navbar.Brand>Recipe Repo</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
+                        <Nav className="me-auto d-lg-flex m-lg-0">
+                            <Nav.Link href="/login">Login</Nav.Link>
+                        </Nav>
+                        <form className="d-flex col-12 col-lg-6">
+                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                                id="dietary-restriction-search"></input>
+                            <button id="search" className="btn btn-outline-dark" type="submit">Search</button>
+                        </form>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+            {/* <nav className="navbar-app navbar navbar-expand-lg py-4 d-flex align-items-center">
                 <h1 className="px-3 m-0 d-flex"><a className="navbar-brand" id="site-title" href="/">Recipe Repo</a></h1>
                 <button className="navbar-toggler navbar-light" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -26,9 +46,9 @@ function Navbar() {
                         </li>
                     </ul>
                 </div>
-            </nav>
+            </nav> */}
         </>
     )
 }
 
-export default Navbar;
+export default Navigation;

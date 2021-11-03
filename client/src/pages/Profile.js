@@ -26,7 +26,7 @@ function Profile() {
 
     return (
         <>
-            <div className="profile-page container-fluid mt-5">
+            <div className="profile-page container mt-5">
                 <div className="row">
                     {recipes.map(recipe => <RecipeCard recipe={recipe} />)}
                 </div>

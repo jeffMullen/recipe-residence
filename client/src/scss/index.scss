@@ -1,8 +1,17 @@
 
+$nav-height: 56px;
+
+$container-padding-x: 0px;
+
+@import '~bootstrap/scss/bootstrap.scss';
+
 * {
-    margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html {
+    font-size: 1rem;
 }
 
 .App {
@@ -11,10 +20,25 @@
 
 .App-header {
     width: inherit;
+    height: $nav-height;
+    position: relative;
+    z-index: 1;
+    .navbar-app {
+        // background: linear-gradient(0deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0),grey);
+        .navbar-brand {
+            font-size: 1.5rem;
+        }
+        a {
+            color: black;
+        }
+    }
 }
+
+
 
 .home-banner {
     padding: 0;
+    margin-top: -$nav-height;
 }
 
 .hero-container {
@@ -29,4 +53,10 @@
         padding: 0;
         background-size: cover;
     }
+}
+
+// Profile page styles
+
+.profile-page {
+    width: inherit;
 }
