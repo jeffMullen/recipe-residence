@@ -9,7 +9,7 @@ function Navigation() {
 
     return (
         <>
-            <Navbar collapseOnSelect expand="lg" variant="light">
+            <Navbar className="navbar-app" collapseOnSelect expand="lg" variant="light">
                 <Container>
                     <Navbar.Brand>Recipe Repo</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
