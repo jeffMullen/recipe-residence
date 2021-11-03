@@ -26,7 +26,11 @@ function Profile() {
 
     return (
         <>
-            {recipes.map(recipe => <RecipeCard recipe={recipe} />)}
+            <div className="profile-page container-fluid mt-5">
+                <div className="row">
+                    {recipes.map(recipe => <RecipeCard recipe={recipe} />)}
+                </div>
+            </div>
         </>
     )
 
