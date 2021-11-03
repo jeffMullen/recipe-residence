@@ -5,9 +5,11 @@ function Home() {
 
     return (
         <>
-            <div className="container">
-                <div className="row">
-                    <div className="hero col"></div>
+            <div className="home-banner container-fluid">
+                <div className="hero-container row w-100">
+                    <div className="hero col" style={{ backgroundImage: `url(./images/hero.png)` }}>
+
+                    </div>
                 </div>
             </div>
         </>
