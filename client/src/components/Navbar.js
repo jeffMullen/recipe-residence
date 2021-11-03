@@ -15,21 +15,17 @@ function Navbar() {
                 </button>
                 <div class="collapse navbar-collapse p-0 mr-0 ml-3 mb-3 mb-lg-0 col-lg-7 col-xl-5 w-100"
                     id="navbarSupportedContent">
+                    <form class="d-flex col-12 col-lg-6">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                            id="dietary-restriction-search"></input>
+                        <button id="search" class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
                     <ul
                         class="row-fluid col-12 col-lg-6 d-flex justify-content-lg-end navbar-nav me-auto mb-2 mb-lg-0 mt-2 mt-lg-0">
                         <li class="nav-item pl-0">
                             <a id="logout" class="nav-link active mr-2" aria-current="page" href="#">Logout</a>
                         </li>
-                        <li class="nav-item">
-                            <a id="add-company" class="nav-link active" aria-current="page" href="/addcompany">Add
-                                Company</a>
-                        </li>
                     </ul>
-                    <form class="d-flex col-12 col-lg-6">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                            id="company-name-search"></input>
-                        <button id="search" class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
                 </div>
                 {/* </div> */}
             </nav>
