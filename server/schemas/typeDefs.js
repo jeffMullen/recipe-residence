@@ -12,14 +12,19 @@ const typeDefs = gql`
         description: String
         instructions: String
         total_time: String
-        dietry_restrictions: [String]
+        dietry_restrictions: [DietaryRestrictions]
         link: String
+    }
+
+    type DietaryRestrictions {
+        type: String
     }
 
     type Query {
         user: User
         recipe(_id: ID!): Recipe
         recipes: [Recipe]
+        dietary_restrictions:[DietaryRestrictions]
     }
 
     type Mutation {
