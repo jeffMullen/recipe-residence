@@ -5,30 +5,29 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    recipes: async (parent, { category, name }) => {
+    recipes: async (parent, { dietary_restrictions, title }) => {
       const params = {};
 
-      if (category) {
-        params.category = category;
+      if (dietary_restrictions) {
+        params.dietary_restrictions = dietary_restrictions;
       }
 
-      if (name) {
-        params.name = {
-          $regex: name
+      if (title) {
+        params.title = {
+          $regex: title
         };
       }
 
-      return await Product.find(params).populate('category');
+      return await Recipe.find(params).populate('dietary_restrictions');
     },
+
     recipe: async (parent, { _id }) => {
-      return await Product.findById(_id).populate('category');
+      return await Recipe.findById(_id).populate('dietary_restrictions');
     },
+
     user: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findById(context.user._id).populate({
-        //   path: 'PLACEHOLDER',
-        //   populate: 'PLACEHOLDER'
-        });
+        const user = await User.findById(context.user._id).populate('Recipe');
 
         // user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
         //above is an idea for sorting recipes belonging to a user
@@ -43,36 +42,31 @@ const resolvers = {
     addUser: async (parent, args) => {
       const user = await User.create(args);
       const token = signToken(user);
-
       return { token, user };
     },
+
     addRecipe: async (parent, { recipe }, context) => {
       console.log(context);
       if (context.user) {
-        const order = new Recipe({ recipe });
+        const recipe = new Recipe({ recipe });
 
-        await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
+        await User.findByIdAndUpdate(context.user._id, { $push: { savedRecipes: recipe } });
 
-        return order;
+        return recipe;
       }
 
       throw new AuthenticationError('Not logged in');
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
-
       if (!user) {
         throw new AuthenticationError('Incorrect credentials');
       }
-
       const correctPw = await user.isCorrectPassword(password);
-
       if (!correctPw) {
         throw new AuthenticationError('Incorrect credentials');
       }
-
       const token = signToken(user);
-
       return { token, user };
     }
   }
