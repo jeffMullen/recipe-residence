@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 // This is a subdocument schema, it won't become its own model but we'll use it as the schema for the User's `savedRecipes` array in User.js
 const recipeSchema = new Schema({
@@ -21,12 +21,17 @@ const recipeSchema = new Schema({
     total_time: {
         type: String
     },
-    dietry_restrictions: {
-        type: [String]
-    },
+    dietry_restrictions: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'DietaryRestrictions'
+        }
+      ],
     link: {
         type: String,
     },
 });
 
-module.exports = recipeSchema;
+const Recipe = model('Recipe', recipeSchema)
+
+module.exports = Recipe;
