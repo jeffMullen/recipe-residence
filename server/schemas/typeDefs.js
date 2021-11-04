@@ -18,6 +18,7 @@ const typeDefs = gql`
 
     type DietaryRestrictions {
         type: String
+        _id: ID!
     }
 
     type Query {
@@ -29,9 +30,8 @@ const typeDefs = gql`
 
     type Mutation {
         addUser(username: String!, email: String!, password: String!): Auth
-        
+        addRecipe(_id: ID!, author: String!, title: String!, ingredients: [String!], description: String!, instructions: String!, total_time: String!, dietry_restrictions:[DietaryRestrictions]  link: String!)
         login(email: String!, password: String!): Auth
     }
 `;
-//still need to add mutation for addRecipe once more is built
 module.exports = typeDefs;
