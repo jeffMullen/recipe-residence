@@ -11,6 +11,7 @@ query user($username: String!) {
     recipes {
       _id
       title
+      author
       ingredients
       description
       instructions
@@ -30,6 +31,7 @@ export const GET_ME = gql`
       savedRecipes {
       _id
       title
+      author
       ingredients
       description
       instructions
@@ -45,6 +47,7 @@ export const GET_RECIPES = gql`
     recipes {
       _id
       title
+      author
       ingredients
       description
       instructions
@@ -59,6 +62,7 @@ export const GET_SINGLE_RECIPE = gql`
     recipe(recipeId: $recipeId) {
     _id
     title
+    author
     ingredients
     description
     instructions
