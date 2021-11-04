@@ -32,6 +32,7 @@ export const ADD_RECIPE = gql`
       recipeInfo {
         _id
         title
+        author
         ingredients
         description
         instructions
