@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import RecipeCard from "../components/RecipeCard";
+import CreateRecipe from '../components/CreateRecipe/CreateRecipe';
 
 function Profile() {
 
@@ -30,6 +31,7 @@ function Profile() {
                 <div className="row">
                     {recipes.map(recipe => <RecipeCard recipe={recipe} />)}
                 </div>
+                <CreateRecipe />
             </div>
         </>
     )
