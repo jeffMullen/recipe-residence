@@ -7,6 +7,12 @@ const dietarySchema = new Schema({
         type: String,
         required: true,
         trim: true
+    },
+    _id: {
+        type: ID,
+        required: true,
+        primaryKey: true,
+        autoIncrement: true
     }
 });
 
