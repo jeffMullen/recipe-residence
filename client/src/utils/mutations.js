@@ -26,6 +26,18 @@ export const ADD_USER = gql`
   }
 `;
 
-// export const ADD_RECIPE = gql`
-  
-// `;
+export const ADD_RECIPE = gql`
+  mutation addRecipe($recipeInfo: String!) {
+    addRecipe(recipeInfo: $recipeInfo) {
+      recipeInfo {
+        _id
+        title
+        ingredients
+        description
+        instructions
+        total_time
+        dietry_restrictions
+      }
+    }
+  }
+`;
