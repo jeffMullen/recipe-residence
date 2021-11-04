@@ -44,6 +44,9 @@ function Navigation() {
                         <li className="nav-item pl-0">
                             <a id="logout" className="nav-link active mr-2" aria-current="page" href="#">Logout</a>
                         </li>
+                        <li class="nav-item pl-0">
+                            <a id="login" class="nav-link active mr-2" aria-current="page" href="#">Login</a>
+                        </li>
                     </ul>
                 </div>
             </nav> */}
