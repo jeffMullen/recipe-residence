@@ -1,5 +1,7 @@
 import React from 'react';
 
+import styles from './Home.module.scss';
+
 function Home() {
 
 
@@ -7,7 +9,7 @@ function Home() {
         <>
             <div className="home-banner container-fluid">
                 <div className="hero-container row w-100">
-                    <div className="hero col" style={{ backgroundImage: `url(./images/hero.png)` }}>
+                    <div className={`${styles.heroImage} hero col`}>
 
                     </div>
                 </div>
