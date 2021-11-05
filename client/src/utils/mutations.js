@@ -1,4 +1,5 @@
 // Any actions that change stored data, such as user profiles or recipes
+// UPDATE AND DELETE NECESSARY
 
 import { gql } from '@apollo/client';
 
