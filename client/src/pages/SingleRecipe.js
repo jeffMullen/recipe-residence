@@ -27,14 +27,16 @@ const SingleRecipe = () => {
                 <p>{recipe.author}</p>
                 </Link>
             </h3>
-            <p>{recipe.description}</p>
-            <p>{recipe.dietary_restrictions}</p>
-            <p>{recipe.total_time}</p>
-            <blockquote>
-                <p>{recipe.ingredients}</p>
-            </blockquote>
-            <p>{recipe.instructions}</p>
-            <p>{recipe.link}</p>
+            <div>
+                <p>{recipe.description}</p>
+                <p>{recipe.dietary_restrictions}</p>
+                <p>{recipe.total_time}</p>
+                <blockquote>
+                    <p>{recipe.ingredients}</p>
+                </blockquote>
+                <p>{recipe.instructions}</p>
+                <p>{recipe.link}</p>
+            </div>
         </div>
         </>
     );
