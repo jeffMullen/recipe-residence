@@ -5,8 +5,8 @@ import { Modal, Tab } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 import Auth from '../../utils/auth';
-import SignUpForm from '../SignupForm';
-import LoginForm from '../LoginForm';
+import SignUpForm from '../LoginSignup/SignupForm';
+import LoginForm from '../LoginSignup/LoginForm';
 import styles from './Navbar.module.scss';
 
 function Navigation() {
