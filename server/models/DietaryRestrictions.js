@@ -8,12 +8,12 @@ const dietarySchema = new Schema({
         required: true,
         trim: true
     },
-    _id: {
-        type: ID,
-        required: true,
-        primaryKey: true,
-        autoIncrement: true
-    }
+    // _id: {
+    //     type: ID,
+    //     required: true,
+    //     primaryKey: true,
+    //     autoIncrement: true
+    // }
 });
 
 const DietaryRestrictions = mongoose.model('DietaryRestrictions', dietarySchema);
