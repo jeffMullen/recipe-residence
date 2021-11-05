@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
@@ -19,13 +20,22 @@ const SingleRecipe = () => {
     } 
     return (
         <>
-        <p>{recipe.title}</p>
-        <p>{recipe.author}</p>
-        <p>{recipe.description}</p>
-        <p>{recipe.dietary_restrictions}</p>
-        <p>{recipe.total_time}</p>
-        <p>{recipe.ingredients}</p>
-        <p>{recipe.link}</p>
+        <div className="my-3">
+            <h3 className="card-header">
+                <p>{recipe.title}</p>
+                <Link to={`/profiles/${recipe.author}`}>
+                <p>{recipe.author}</p>
+                </Link>
+            </h3>
+            <p>{recipe.description}</p>
+            <p>{recipe.dietary_restrictions}</p>
+            <p>{recipe.total_time}</p>
+            <blockquote>
+                <p>{recipe.ingredients}</p>
+            </blockquote>
+            <p>{recipe.instructions}</p>
+            <p>{recipe.link}</p>
+        </div>
         </>
     );
 };
