@@ -16,7 +16,7 @@ query user($username: String!) {
       description
       instructions
       total_time
-      dietry_restrictions
+      dietary_restrictions
     }
   }
 }
@@ -36,7 +36,7 @@ export const GET_ME = gql`
       description
       instructions
       total_time
-      dietry_restrictions
+      dietary_restrictions
       }
     }
   }
@@ -52,7 +52,7 @@ export const GET_RECIPES = gql`
       description
       instructions
       total_time
-      dietry_restrictions
+      dietary_restrictions
     }
   }
 `;
@@ -67,6 +67,6 @@ export const GET_SINGLE_RECIPE = gql`
     description
     instructions
     total_time
-    dietry_restrictions
+    dietary_restrictions
   }
 `;

@@ -38,7 +38,7 @@ export const ADD_RECIPE = gql`
         description
         instructions
         total_time
-        dietry_restrictions
+        dietary_restrictions
       }
     }
   }
