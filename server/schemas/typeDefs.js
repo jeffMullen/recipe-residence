@@ -26,7 +26,15 @@ const typeDefs = gql`
         recipe(_id: ID!): Recipe
         recipes: [Recipe]
         dietary_restrictions:[DietaryRestrictions]
+        getRecipeTitle(search: String, page: Int, limit: Int): RecipeResult
     }
+
+    type RecipeResult {
+        recipes: [Recipe]
+        currentPage: Int
+        totalPages: Int
+      }
+      
     
     type Auth {
         token: ID!

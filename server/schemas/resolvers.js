@@ -21,10 +21,47 @@ const resolvers = {
       return await Recipe.find(params).populate('dietary_restrictions');
     },
 
+
     recipe: async (parent, { _id }) => {
       return await Recipe.findById(_id).populate('dietary_restrictions');
     },
 
+    getRecipeTitle: async (_, args) => {
+
+      // destrcture search, page, limit, and set default values
+      const { search = null, page = 1, limit = 20 } = args;
+
+      let searchQuery = {};
+
+      // run if search is provided
+      if (search) {
+        // update the search query
+        searchQuery = {
+          $or: [
+            { title: { $regex: search, $options: 'i' } },
+            // { lastName: { $regex: search, $options: 'i' } },
+            // { userName: { $regex: search, $options: 'i' } },
+            // { email: { $regex: search, $options: 'i' } },
+            // { jobTitle: { $regex: search, $options: 'i' } }
+          ]
+        }
+      }
+
+      // execute query to search users
+      const recipes = await Recipe.find(searchQuery)
+        .limit(limit)
+        .skip((page - 1) * limit)
+        .lean();
+
+      // get total documents
+      const count = await Recipe.countDocuments(searchQuery);
+
+      return {
+        recipes,
+        totalPages: Math.ceil(count / limit),
+        currentPage: page
+      }
+    },
     user: async (parent, args, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate('Recipe');
