@@ -27,10 +27,15 @@ const typeDefs = gql`
         recipes: [Recipe]
         dietary_restrictions:[DietaryRestrictions]
     }
+    
+    type Auth {
+        token: ID!
+        user: User
+    }  
 
     type Mutation {
         addUser(username: String!, email: String!, password: String!): Auth
-        addRecipe(_id: ID!, author: String!, title: String!, ingredients: [String!], description: String!, instructions: String!, total_time: String!, dietry_restrictions:[DietaryRestrictions]  link: String!)
+        addRecipe(_id: ID!, author: String!, title: String!, ingredients: [String!], description: String!, instructions: String!, total_time: String!, dietary_restrictions: [String!], link: String!): Recipe
         login(email: String!, password: String!): Auth
     }
 `;
