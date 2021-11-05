@@ -7,9 +7,9 @@ function Home() {
 
     return (
         <>
-            <div className="home-banner container-fluid">
-                <div className="hero-container row w-100">
-                    <div className={`${styles.heroImage} hero col`}>
+            <div className={`${styles.homeBanner} container-fluid`}>
+                <div className={`${styles.heroContainer} row w-100`}>
+                    <div className={`${styles.heroImage} col`}>
 
                     </div>
                 </div>
