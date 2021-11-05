@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import RecipeCard from "../components/RecipeCard";
+import RecipeCard from "../components/RecipeCard/RecipeCard";
 import CreateRecipe from '../components/CreateRecipe/CreateRecipe';
 
 function Profile() {

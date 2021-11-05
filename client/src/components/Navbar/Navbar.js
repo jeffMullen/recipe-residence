@@ -7,6 +7,7 @@ import Container from 'react-bootstrap/Container';
 import Auth from '../../utils/auth';
 import SignUpForm from '../SignupForm';
 import LoginForm from '../LoginForm';
+import styles from './Navbar.module.scss';
 
 function Navigation() {
     // set modal display state
@@ -14,9 +15,9 @@ function Navigation() {
 
     return (
         <>
-            <Navbar className="navbar-app" collapseOnSelect expand="lg" variant="light">
+            <Navbar className={styles.navbarApp} collapseOnSelect expand="lg" variant="light">
                 <Container>
-                    <Navbar.Brand>Recipe Repo</Navbar.Brand>
+                    <Navbar.Brand className={styles.navbarBrand}>Recipe Repo</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
                         <Nav className='ml-auto'>
