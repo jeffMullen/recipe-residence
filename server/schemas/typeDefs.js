@@ -45,6 +45,7 @@ const typeDefs = gql`
         addUser(username: String!, email: String!, password: String!): Auth
         addRecipe(_id: ID!, author: String!, title: String!, ingredients: [String!], description: String!, instructions: String!, total_time: String!, dietary_restrictions: [String!], link: String!): Recipe
         updateRecipe(_id: ID!, author: String!, title: String!, ingredients: [String!], description: String!, instructions: String!, total_time: String!, dietary_restrictions: [String!], link: String!): Recipe
+        deleteRecipe(_id: ID!): User
         login(email: String!, password: String!): Auth
     }
 `;
