@@ -2,36 +2,52 @@ const db = require('./connection');
 const { User, Recipe, DietaryRestrictions} = require('../models');
 
 db.once('open', async () => {
-  await DietaryRestrictions.deleteMany();
+  // await DietaryRestrictions.deleteMany();
 
-  await DietaryRestrictions.insertMany([
-    { type: 'Vegan' },
-    { type: 'Vegetarian' },
-    { type: 'Dairy-Free' },
-    { type: 'Egg-Free' },
-    { type: 'Kosher' },
-    { type: 'Halal' },
-    { type: 'Keto' },
-    { type: 'Paleo' },
-    { type: 'Diabetic' },
-    { type: 'Lactose-Intolerant' },
-    { type: 'Low-Carb' },
-    { type: 'Low-Fat' },
-    { type: 'Fat-Free' },
-    { type: 'Gluten-Free' },
-    { type: 'Peanut-Free' },
-    { type: 'Nut-Free' },
-    { type: 'Shellfish-Free' },
-    { type: 'Soy-Free' },
-  ]);
+  // await DietaryRestrictions.insertMany([
+  //   { type: 'Vegan' },
+  //   { type: 'Vegetarian' },
+  //   { type: 'Dairy-Free' },
+  //   { type: 'Egg-Free' },
+  //   { type: 'Kosher' },
+  //   { type: 'Halal' },
+  //   { type: 'Keto' },
+  //   { type: 'Paleo' },
+  //   { type: 'Diabetic' },
+  //   { type: 'Lactose-Intolerant' },
+  //   { type: 'Low-Carb' },
+  //   { type: 'Low-Fat' },
+  //   { type: 'Fat-Free' },
+  //   { type: 'Gluten-Free' },
+  //   { type: 'Peanut-Free' },
+  //   { type: 'Nut-Free' },
+  //   { type: 'Shellfish-Free' },
+  //   { type: 'Soy-Free' },
+  // ]);
 
-  console.log('dietary seeded seeded');
+  // console.log('dietary seeded seeded');
 
   //no recipe seeds exist, if we want some, we can add them
 
   await Recipe.deleteMany();
 
   await Recipe.insertMany([
+    {
+      author: 'Branflakes',
+      title: "Low Sodium Mashed Potatoes",
+      ingredients: [
+        'Russet Potatoes - 2.5 lbs',
+        'Cream or Milk - 1/4 cup',
+        'Unsalted Butter - 1/4 cup',
+        'Nutritional Yeast -  3 tbsp',
+        'Sour Cream - 1 cup'
+      ],
+      description: "a creamy, low sodium mashed potatoes recipe that is sure to be something you'll favorite!",
+      instructions: "first, Peel, wash, and quarter the potatoes. Place the potatoes in a pot and cover with water.  Next, Bring potatoes to a boil over high heat. Reduce heat to medium and boil for about 20 minutes, or until potatoes are tender. Remove from water as soon as the potatoes are tender. (This prevents the potatoes from becoming water logged, which makes a huge difference in the creaminess of the potatoes.)  Then put the milk and butter in a microwave safe bowl or measuring cup. Heat until the mixture is warm and the butter is completely melted.  While the cream and butter are heating, mash the potatoes. (I used an old-school hand masher because overbeating potatoes can make them gummy.) Once mashed, add the hot cream and butter mixture and stir vigorously.  Finally, stir in the nutritional yeast and sour cream.",
+      total_time: "45 minutes",
+      dietary_restrictions: ['Low-Sodium'],
+      link: "https://www.sodiumoptional.com/mashed-potatoes/"
+    },
     {
       author: 'Marlandis',
       title: "Indiana Lasagna",
@@ -99,6 +115,12 @@ db.once('open', async () => {
   await User.create({
     username: 'Rala',
     email: 'rala@testmail.com',
+    password: 'password12345'
+  });
+
+  await User.create({
+    username: 'Branflakes',
+    email: 'bran@testmail.com',
     password: 'password12345'
   });
 

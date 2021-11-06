@@ -18,4 +18,4 @@ const dietarySchema = new Schema({
 
 const DietaryRestrictions = mongoose.model('DietaryRestrictions', dietarySchema);
 
-module.exports = DietaryRestrictions;
+// module.exports = DietaryRestrictions;
