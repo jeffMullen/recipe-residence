@@ -6,7 +6,7 @@ function Checkbox({ restriction }) {
         <>
             <div className="form-check">
                 <input className="form-check-input" type="checkbox" value={restriction} id="flexCheckDefault"></input>
-                <label className="form-check-label" for="flexCheckDefault">
+                <label className="form-check-label" htmlFor="flexCheckDefault">
                     {restriction}
                 </label>
             </div>

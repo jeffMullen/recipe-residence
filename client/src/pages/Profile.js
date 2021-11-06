@@ -8,6 +8,7 @@ function Profile() {
 
     recipes = [
         {
+            _id: '1',
             title: 'Lasagna',
             ingredients: ['Noodles', 'Mozz', 'Sauce', 'Eggplant'],
             description: 'Super good Italian flat noodle pie',
@@ -16,6 +17,7 @@ function Profile() {
             link: 'lasagna.com'
         },
         {
+            _id: '2',
             title: 'Lasagna',
             ingredients: ['Noodles', 'Mozz', 'Sauce', 'Eggplant'],
             description: 'Super good Italian flat noodle pie',
@@ -29,7 +31,7 @@ function Profile() {
         <>
             <div className="profile-page container mt-5">
                 <div className="row">
-                    {recipes.map(recipe => <RecipeCard recipe={recipe} />)}
+                    {recipes.map(recipe => <RecipeCard key={recipe._id} recipe={recipe} />)}
                 </div>
                 <CreateRecipe />
             </div>

@@ -49,6 +49,8 @@ function RecipeForm({ formData, setFormData }) {
     const [instructions, setInstructions] = useState('');
     const [ingredients, setIngredients] = useState([]);
 
+
+    // Track input changes in state
     const handleInputChange = (e) => {
         let name = e.target.name;
         let value = e.target.value;
@@ -72,7 +74,7 @@ function RecipeForm({ formData, setFormData }) {
     }
 
 
-
+    // Add ingredients to an array in state
     const addIngredient = (e, input) => {
         e.preventDefault()
         let value = input.value;
@@ -82,7 +84,7 @@ function RecipeForm({ formData, setFormData }) {
         editState();
     }
 
-    // 
+    // Create recipe mutation
     const createRecipe = async () => {
         console.log('CREATE RECIPE');
         try {
@@ -113,7 +115,7 @@ function RecipeForm({ formData, setFormData }) {
                 {/* Dietary restrictions checkboxes */}
                 <div>
                     <label htmlFor="dietaryRestrictions">Dietary Restrictions</label>
-                    {dietaryRestrictions.map(restriction => <Checkbox restriction={restriction} />)}
+                    {dietaryRestrictions.map((restriction, index) => <Checkbox key={index} restriction={restriction} />)}
                 </div>
                 <div>
                     <label htmlFor="ingredients" className="form-label">Ingredients</label>
