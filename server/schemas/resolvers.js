@@ -18,21 +18,16 @@ const resolvers = {
         };
       }
 
-      return await Recipe.find(params).populate('dietary_restrictions');
-    },
-
-
-    recipe: async (parent, { _id }) => {
-      return await Recipe.findById(_id).populate('dietary_restrictions');
+      return await Recipe.find();
     },
 
     getRecipeTitle: async (_, args) => {
-
+      
       // destrcture search, page, limit, and set default values
       const { search = null, page = 1, limit = 20 } = args;
 
       let searchQuery = {};
-
+      
       // run if search is provided
       if (search) {
         // update the search query
@@ -52,27 +47,15 @@ const resolvers = {
         .limit(limit)
         .skip((page - 1) * limit)
         .lean();
-
-      // get total documents
+        
+        // get total documents
       const count = await Recipe.countDocuments(searchQuery);
-
+      
       return {
-        recipes,
+        recipies,
         totalPages: Math.ceil(count / limit),
         currentPage: page
       }
-    },
-    user: async (parent, args, context) => {
-      if (context.user) {
-        const user = await User.findById(context.user._id).populate('Recipe');
-
-        // user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
-        //above is an idea for sorting recipes belonging to a user
-
-        return user;
-      }
-
-      throw new AuthenticationError('Not logged in');
     },
   },
   Mutation: {
@@ -81,14 +64,14 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-
+    
     addRecipe: async (parent, { recipe }, context) => {
       console.log(context);
       if (context.user) {
         const recipe = new Recipe({ recipe });
-
+        
         await User.findByIdAndUpdate(context.user._id, { $push: { savedRecipes: recipe } });
-
+        
         return recipe;
       }
 
@@ -110,3 +93,22 @@ const resolvers = {
 };
 
 module.exports = resolvers;
+
+//UNUSED QUERIES
+
+// recipe: async (parent, { _id }) => {
+  //   return await Recipe.findById(_id).populate('dietary_restrictions');
+  // },
+  
+  // user: async (parent, args, context) => {
+  //   if (context.user) {
+  //     const user = await User.findById(context.user._id).populate('Recipe');
+      
+  //     // user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
+  //     //above is an idea for sorting recipes belonging to a user
+  
+  //     return user;
+  //   }
+    
+  //   throw new AuthenticationError('Not logged in');
+  // },
