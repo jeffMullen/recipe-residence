@@ -43,13 +43,3 @@ const typeDefs = gql`
         }
         `;
         module.exports = typeDefs;
-        
-        // type DietaryRestrictions {
-            //     type: String
-        //     _id: ID!
-        // }
-
-        //UNUSED QUERIES:
-        // user: User
-        // recipe(_id: ID!): Recipe
-        // dietary_restrictions:[DietaryRestrictions]

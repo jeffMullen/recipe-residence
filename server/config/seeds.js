@@ -1,33 +1,7 @@
 const db = require('./connection');
-const { User, Recipe, DietaryRestrictions} = require('../models');
+const { User, Recipe} = require('../models');
 
 db.once('open', async () => {
-  // await DietaryRestrictions.deleteMany();
-
-  // await DietaryRestrictions.insertMany([
-  //   { type: 'Vegan' },
-  //   { type: 'Vegetarian' },
-  //   { type: 'Dairy-Free' },
-  //   { type: 'Egg-Free' },
-  //   { type: 'Kosher' },
-  //   { type: 'Halal' },
-  //   { type: 'Keto' },
-  //   { type: 'Paleo' },
-  //   { type: 'Diabetic' },
-  //   { type: 'Lactose-Intolerant' },
-  //   { type: 'Low-Carb' },
-  //   { type: 'Low-Fat' },
-  //   { type: 'Fat-Free' },
-  //   { type: 'Gluten-Free' },
-  //   { type: 'Peanut-Free' },
-  //   { type: 'Nut-Free' },
-  //   { type: 'Shellfish-Free' },
-  //   { type: 'Soy-Free' },
-  // ]);
-
-  // console.log('dietary seeded seeded');
-
-  //no recipe seeds exist, if we want some, we can add them
 
   await Recipe.deleteMany();
 
