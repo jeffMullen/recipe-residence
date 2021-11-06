@@ -28,9 +28,9 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_RECIPE = gql`
-  mutation addRecipe($recipeInfo: String!) {
-    addRecipe(recipeInfo: $recipeInfo) {
-      recipeInfo {
+  mutation addRecipe($title: String, $ingredients: [String], $description: String, $instructions: String, $total_time: String, $dietry_restrictions: [DietaryRestrictions]) {
+    addRecipe(title: $title, ingredients: $ingredients, description: $description, instructions: $instructions, total_time: $total_time, dietary_restrictions: $dietary_restrictions) {
+      recipe {
         _id
         title
         author
@@ -45,9 +45,9 @@ export const ADD_RECIPE = gql`
 `;
 
 export const UPDATE_RECIPE = gql`
-  mutation updateRecipe($recipeId: ID!, $recipeInfo: String!) {
-    updateRecipe(recipeId: $recipeId, recipeInfo: $recipeInfo) {
-      recipeInfo {
+  mutation updateRecipe($_id: ID!, $title: String, $ingredients: [String], $description: String, $instructions: String, $total_time: String, $dietry_restrictions: [DietaryRestrictions]) {
+    updateRecipe(recipeId: $_id, title: $title, ingredients: $ingredients, description: $description, instructions: $instructions, total_time: $total_time, dietary_restrictions: $dietary_restrictions) {
+      recipe {
         _id
         title
         author
