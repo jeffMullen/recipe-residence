@@ -71,8 +71,7 @@ export const SEARCH_RECIPES = gql`
         link
       }
     }
-  }
-`;
+  }`;
 
 // export const GET_SINGLE_RECIPE = gql`
 //   query recipe($recipeId: ID!) {

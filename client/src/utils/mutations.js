@@ -79,3 +79,42 @@ export const DELETE_RECIPE = gql`
     }
   }
 `;
+
+export const SAVE_RECIPE = gql`
+mutation saveRecipe($_id: ID!, $title: String, $ingredients: [String], $description: String, $instructions: String, $total_time: String, $dietry_restrictions: [DietaryRestrictions]) {
+    saveRecipe(recipeId: $_id, title: $title, ingredients: $ingredients, description: $description, instructions: $instructions, total_time: $total_time, dietary_restrictions: $dietary_restrictions){
+        _id
+        username
+        savedRecipes {
+          _id
+          title
+          author
+          ingredients
+          description
+          instructions
+          total_time
+          dietary_restrictions
+        }
+    }
+}
+`;
+
+export const REMOVE_RECIPE = gql`
+  mutation removeRecipe($recipeId: ID!) {
+      removeRecipe(recipeId: $recipeId) {
+          _id
+          username
+          savedRecipes {
+            _id
+            title
+            author
+            ingredients
+            description
+            instructions
+            total_time
+            dietary_restrictions
+        }
+      }
+  }
+`;
+
