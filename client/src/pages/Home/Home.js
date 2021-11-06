@@ -10,10 +10,10 @@ function Home() {
             <div className={`${styles.homeBanner} container-fluid`}>
                 <div className={`${styles.heroContainer} row w-100`}>
                     <div className={`${styles.heroImage} col`}>
-
                     </div>
                 </div>
             </div>
+
         </>
     )
 }
