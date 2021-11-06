@@ -52,7 +52,7 @@ const resolvers = {
       const count = await Recipe.countDocuments(searchQuery);
       
       return {
-        recipies,
+        recipes,
         totalPages: Math.ceil(count / limit),
         currentPage: page
       }

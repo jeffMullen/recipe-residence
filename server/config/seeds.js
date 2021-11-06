@@ -1,8 +1,8 @@
 const db = require('./connection');
-const { User, Recipe, DietaryRestrictions} = require('../models');
+const { User, Recipe} = require('../models');
 
 db.once('open', async () => {
- 
+
   await Recipe.deleteMany();
 
   await Recipe.insertMany([
