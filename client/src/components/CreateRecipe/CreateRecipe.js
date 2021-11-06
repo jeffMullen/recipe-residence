@@ -23,7 +23,6 @@ function CreateRecipe() {
         <>
             {/* <RenderedRecipe /> */}
             <RecipeForm formData={formData} setFormData={setFormData} />
-
         </>
     )
 }
