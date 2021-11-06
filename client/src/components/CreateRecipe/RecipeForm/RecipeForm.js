@@ -32,30 +32,32 @@ function RecipeForm({ formData, setFormData }) {
         'Soy-Free'
     ];
 
-    const editState = () => {
-        setFormData({
-            title,
-            total_time: totalTime,
-            description,
-            instructions,
-            ingredients
-        })
-        console.log(formData);
-    }
-
     const [title, setTitle] = useState('');
     const [totalTime, setTotalTime] = useState('');
     const [description, setDescription] = useState('');
     const [instructions, setInstructions] = useState('');
     const [ingredients, setIngredients] = useState([]);
+    const [restriction, setRestriction] = useState([]);
+
+    const editState = () => {
+        setFormData({
+            author: '61856e7a881fa373a8698b18',
+            title,
+            total_time: totalTime,
+            description,
+            instructions,
+            ingredients,
+            dietary_restrictions: restriction
+        })
+
+    }
+
 
 
     // Track input changes in state
     const handleInputChange = (e) => {
         let name = e.target.name;
         let value = e.target.value;
-
-        // console.log(name, value)
 
         if (name === 'title') {
             setTitle(value)
@@ -71,6 +73,7 @@ function RecipeForm({ formData, setFormData }) {
         }
 
         editState();
+        console.log(formData);
     }
 
 
@@ -84,25 +87,48 @@ function RecipeForm({ formData, setFormData }) {
         editState();
     }
 
+    // Add dietary restriction to state array
+    const addRestriction = (e) => {
+        console.log(e.target.value)
+        let value = e.target.value;
+
+        if (e.target.checked === true) {
+            setRestriction([...restriction, value])
+        } else (
+            setRestriction(restriction.filter(item => item !== value))
+        )
+        editState();
+        console.log(formData.dietary_restrictions);
+    }
+
     // Create recipe mutation
     const createRecipe = async () => {
-        const dietRestrict = document.querySelector('#dietaryRestrictions').children;
-        // console.log(dietRestrict);
 
-        let restrictionChoices = [];
-        // dietRestrict.map(child => {
-        //     let value = child.value;
-        //     if (child.checked) {
-        //         restrictionChoices.push(value);
-        //     }
-        // })
-        console.log(restrictionChoices);
+        if (!token) {
+            return false;
+        }
 
-        console.log('CREATE RECIPE');
+        console.log(Auth.getProfile().data._id)
+        let author = Auth.getProfile().data.username;
+        let _id = Auth.getProfile().data._id;
+
+        // const dietRestrict = document.querySelector('#dietaryRestrictions').children;
+        // // console.log(dietRestrict);
+
+        // let restrictionChoices = [];
+        // // dietRestrict.map(child => {
+        // //     let value = child.value;
+        // //     if (child.checked) {
+        // //         restrictionChoices.push(value);
+        // //     }
+        // // })
+        // console.log(restrictionChoices);
+
+        // console.log('CREATE RECIPE');
         try {
-            // const { data } = await addRecipe({
-            //     variables: { ...formData }
-            // })
+            const { data } = await addRecipe({
+                variables: { ...formData, author }
+            })
 
         } catch (err) {
             console.error(err);
@@ -128,7 +154,11 @@ function RecipeForm({ formData, setFormData }) {
                 <div>
                     <label htmlFor="dietaryRestrictions">Dietary Restrictions</label>
                     <div id="dietaryRestrictions">
-                        {dietaryRestrictions.map((restriction, index) => <Checkbox key={index} restriction={restriction} />)}
+                        {dietaryRestrictions.map((restriction, index) =>
+                            <Checkbox
+                                addRestriction={addRestriction}
+                                key={index}
+                                restriction={restriction} />)}
                     </div>
                 </div>
                 <div>
