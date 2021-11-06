@@ -41,7 +41,6 @@ function RecipeForm({ formData, setFormData }) {
 
     const editState = () => {
         setFormData({
-            author: '61856e7a881fa373a8698b18',
             title,
             total_time: totalTime,
             description,
@@ -112,21 +111,8 @@ function RecipeForm({ formData, setFormData }) {
         let author = Auth.getProfile().data.username;
         let _id = Auth.getProfile().data._id;
 
-        // const dietRestrict = document.querySelector('#dietaryRestrictions').children;
-        // // console.log(dietRestrict);
-
-        // let restrictionChoices = [];
-        // // dietRestrict.map(child => {
-        // //     let value = child.value;
-        // //     if (child.checked) {
-        // //         restrictionChoices.push(value);
-        // //     }
-        // // })
-        // console.log(restrictionChoices);
-
-        // console.log('CREATE RECIPE');
         try {
-            const { data } = await addRecipe({
+            await addRecipe({
                 variables: { ...formData, author }
             })
 

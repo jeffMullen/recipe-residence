@@ -22,12 +22,12 @@ const resolvers = {
     },
 
     getRecipeTitle: async (_, args) => {
-      
+
       // destrcture search, page, limit, and set default values
       const { search = null, page = 1, limit = 20 } = args;
 
       let searchQuery = {};
-      
+
       // run if search is provided
       if (search) {
         // update the search query
@@ -47,10 +47,10 @@ const resolvers = {
         .limit(limit)
         .skip((page - 1) * limit)
         .lean();
-        
-        // get total documents
+
+      // get total documents
       const count = await Recipe.countDocuments(searchQuery);
-      
+
       return {
         recipes,
         totalPages: Math.ceil(count / limit),
@@ -64,14 +64,18 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    
-    addRecipe: async (parent, { recipe }, context) => {
-      console.log(context);
+
+    addRecipe: async (parent, { title, ingredients, description, instructions, total_time, dietary_restrictions, author }, context) => {
+      console.log('IN ADD RECIPE RESOLVER')
+      const recipe = { title, ingredients, description, instructions, total_time, dietary_restrictions, author };
+      console.log(recipe);
+
       if (context.user) {
-        const recipe = new Recipe({ recipe });
-        
-        await User.findByIdAndUpdate(context.user._id, { $push: { savedRecipes: recipe } });
-        
+        const newRecipe = await Recipe.create({ ...recipe });
+        console.log('AFTER RECIPE CREATE')
+
+        await User.findByIdAndUpdate(context.user._id, { $push: { savedRecipes: newRecipe } });
+
         return recipe;
       }
 
@@ -79,34 +83,34 @@ const resolvers = {
     },
 
     saveRecipe: async (parent, { _id, title, author, description, ingredients, instructions, total_time, dietary_restrictions, link }, context) => {
-      const book = { _id, title, author, description, ingredients, instructions, total_time, dietary_restrictions, link };
-      if(context.user){
-          return User.findOneAndUpdate(
-              {_id: context.user._id},
-              {
-                  $addToSet: {savedRecipes: recipe}
-              }
-          );
+      const recipe = { _id, title, author, description, ingredients, instructions, total_time, dietary_restrictions, link };
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $addToSet: { savedRecipes: recipe }
+          }
+        );
       }
       throw new AuthenticationError('Please log in to add a favorite recipe');
-  },
+    },
 
-  removeRecipe: async (parent, temp, context) => {
-      const {_id} = temp;
+    removeRecipe: async (parent, temp, context) => {
+      const { _id } = temp;
       console.log(temp);
-      if(context.user) {
-          return User.findOneAndUpdate(
-              {_id: context.user._id},
-              {
-                  $pull: {
-                      savedRecipes: {_id}
-                  }
-              },
-              {new: true}
-          );
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $pull: {
+              savedRecipes: { _id }
+            }
+          },
+          { new: true }
+        );
       }
       throw new AuthenticationError('Please log in to remove a favorite recipe');
-  },
+    },
 
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
@@ -130,16 +134,16 @@ module.exports = resolvers;
 // recipe: async (parent, { _id }) => {
   //   return await Recipe.findById(_id).populate('dietary_restrictions');
   // },
-  
+
   // user: async (parent, args, context) => {
   //   if (context.user) {
   //     const user = await User.findById(context.user._id).populate('Recipe');
-      
+
   //     // user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
   //     //above is an idea for sorting recipes belonging to a user
-  
+
   //     return user;
   //   }
-    
+
   //   throw new AuthenticationError('Not logged in');
   // },
