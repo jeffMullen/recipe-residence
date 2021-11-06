@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
+import Auth from '../../../utils/auth';
 
 import Checkbox from './Checkbox';
 import { ADD_RECIPE } from '../../../utils/mutations';
 
 function RecipeForm({ formData, setFormData }) {
 
-    const [addRecipe, { error, data }] = useMutation(ADD_RECIPE);
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    const [addRecipe, { error, data }] = useMutation(ADD_RECIPE, token);
 
     const dietaryRestrictions = [
         'Vegan',
@@ -32,8 +35,10 @@ function RecipeForm({ formData, setFormData }) {
     const editState = () => {
         setFormData({
             title,
-            totalTime,
-            description
+            total_time: totalTime,
+            description,
+            instructions,
+            ingredients
         })
         console.log(formData);
     }
@@ -41,19 +46,39 @@ function RecipeForm({ formData, setFormData }) {
     const [title, setTitle] = useState('');
     const [totalTime, setTotalTime] = useState('');
     const [description, setDescription] = useState('');
+    const [instructions, setInstructions] = useState('');
+    const [ingredients, setIngredients] = useState([]);
 
     const handleInputChange = (e) => {
-        console.log(e.target.name, e.target.value)
-        if (e.target.name === 'title') {
-            setTitle(e.target.value)
+        let name = e.target.name;
+        let value = e.target.value;
+
+        // console.log(name, value)
+
+        if (name === 'title') {
+            setTitle(value)
         }
-        if (e.target.name === 'totalTime') {
-            setTotalTime(e.target.value)
+        if (name === 'totalTime') {
+            setTotalTime(value)
         }
-        if (e.target.name === 'description') {
-            setDescription(e.target.value)
+        if (name === 'description') {
+            setDescription(value)
+        }
+        if (name === 'instructions') {
+            setInstructions(value);
         }
 
+        editState();
+    }
+
+
+
+    const addIngredient = (e, input) => {
+        e.preventDefault()
+        let value = input.value;
+
+        setIngredients([...ingredients, value]);
+        console.log('ingredients', ingredients)
         editState();
     }
 
@@ -90,20 +115,27 @@ function RecipeForm({ formData, setFormData }) {
                     <label htmlFor="dietaryRestrictions">Dietary Restrictions</label>
                     {dietaryRestrictions.map(restriction => <Checkbox restriction={restriction} />)}
                 </div>
-                {/* <div>
+                <div>
                     <label htmlFor="ingredients" className="form-label">Ingredients</label>
                     <input id="ingredients" name="ingredients" aria-describedby=""></input>
-                </div> */}
+                    <button
+                        onClick={(e) => {
+                            addIngredient(e, e.target.previousSibling)
+                        }}
+                    >Add</button>
+                </div>
                 <div>
                     <label htmlFor="description" className="form-label">Description</label>
                     <input
                         onChange={(e) => handleInputChange(e)}
                         id="description" name="description" aria-describedby=""></input>
                 </div>
-                {/* <div>
+                <div>
                     <label htmlFor="instructions" className="form-label">Instructions</label>
-                    <textarea id="instructions" name="instructions"></textarea>
-                </div> */}
+                    <textarea
+                        onChange={(e) => handleInputChange(e)}
+                        id="instructions" name="instructions"></textarea>
+                </div>
                 <button onClick={(e) => {
                     e.preventDefault();
                     createRecipe();
