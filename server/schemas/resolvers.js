@@ -77,6 +77,37 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
+
+    saveRecipe: async (parent, { _id, title, author, description, ingredients, instructions, total_time, dietary_restrictions, link }, context) => {
+      const book = { _id, title, author, description, ingredients, instructions, total_time, dietary_restrictions, link };
+      if(context.user){
+          return User.findOneAndUpdate(
+              {_id: context.user._id},
+              {
+                  $addToSet: {savedRecipes: recipe}
+              }
+          );
+      }
+      throw new AuthenticationError('Please log in');
+  },
+
+  removeRecipe: async (parent, temp, context) => {
+      const {_id} = temp;
+      console.log(temp);
+      if(context.user) {
+          return User.findOneAndUpdate(
+              {_id: context.user._id},
+              {
+                  $pull: {
+                      savedRecipes: {_id}
+                  }
+              },
+              {new: true}
+          );
+      }
+      throw new AuthenticationError('Please log in');
+  },
+
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
       if (!user) {
