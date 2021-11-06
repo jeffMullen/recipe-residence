@@ -57,16 +57,33 @@ export const GET_RECIPES = gql`
   }
 `;
 
-export const GET_SINGLE_RECIPE = gql`
-  query recipe($recipeId: ID!) {
-    recipe(recipeId: $recipeId) {
-    _id
-    title
-    author
-    ingredients
-    description
-    instructions
-    total_time
-    dietary_restrictions
+export const SEARCH_RECIPES = gql`
+  query getRecipeTitle($search: String, $page: Int, $limit: Int) { 
+    getRecipeTitle(search: $search, page: $page, limit: $limit) {
+      currentPage
+      totalPages
+      recipes {
+        title
+        instructions
+        description
+        ingredients
+        total_time
+        link
+      }
+    }
   }
 `;
+
+// export const GET_SINGLE_RECIPE = gql`
+//   query recipe($recipeId: ID!) {
+//     recipe(recipeId: $recipeId) {
+//     _id
+//     title
+//     author
+//     ingredients
+//     description
+//     instructions
+//     total_time
+//     dietary_restrictions
+//   }
+// `;
