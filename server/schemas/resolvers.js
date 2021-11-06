@@ -88,7 +88,7 @@ const resolvers = {
               }
           );
       }
-      throw new AuthenticationError('Please log in');
+      throw new AuthenticationError('Please log in to add a favorite recipe');
   },
 
   removeRecipe: async (parent, temp, context) => {
@@ -105,7 +105,7 @@ const resolvers = {
               {new: true}
           );
       }
-      throw new AuthenticationError('Please log in');
+      throw new AuthenticationError('Please log in to remove a favorite recipe');
   },
 
     login: async (parent, { email, password }) => {

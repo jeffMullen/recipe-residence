@@ -58,8 +58,8 @@ export const GET_RECIPES = gql`
 `;
 
 export const GET_SINGLE_RECIPE = gql`
-  query recipe($recipeId: ID!) {
-    recipe(recipeId: $recipeId) {
+  query recipe($_id: ID!) {
+    recipe(recipeId: $_id) {
     _id
     title
     author
