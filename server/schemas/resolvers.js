@@ -91,7 +91,7 @@ const resolvers = {
       throw new AuthenticationError('Please log in');
   },
 
-  removeBook: async (parent, temp, context) => {
+  removeRecipe: async (parent, temp, context) => {
       const {_id} = temp;
       console.log(temp);
       if(context.user) {
