@@ -6,24 +6,23 @@ import RecipeForm from './RecipeForm/RecipeForm';
 function CreateRecipe() {
 
     const [formData, setFormData] = useState({
-        _id: '',
-        author: '',
-        title: '',
-        ingredients: [],
-        description: '',
-        instructions: [],
-        total_time: '',
-        dietary_restrictions: [],
-        link: ''
+        // _id: '',
+        // author: '',
+        // title: '',
+        // ingredients: [],
+        // description: '',
+        // instructions: '',
+        // total_time: '',
+        // dietary_restrictions: [],
+        // link: ''
     });
 
-    console.log(formData);
+    // console.log(formData);
 
     return (
         <>
             {/* <RenderedRecipe /> */}
             <RecipeForm formData={formData} setFormData={setFormData} />
-
         </>
     )
 }
