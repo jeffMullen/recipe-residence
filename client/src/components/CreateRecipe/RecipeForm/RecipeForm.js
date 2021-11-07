@@ -86,11 +86,23 @@ function RecipeForm({ formData, setFormData }) {
 
     // Create recipe mutation
     const createRecipe = async () => {
+        const dietRestrict = document.querySelector('#dietaryRestrictions').children;
+        // console.log(dietRestrict);
+
+        let restrictionChoices = [];
+        // dietRestrict.map(child => {
+        //     let value = child.value;
+        //     if (child.checked) {
+        //         restrictionChoices.push(value);
+        //     }
+        // })
+        console.log(restrictionChoices);
+
         console.log('CREATE RECIPE');
         try {
-            const { data } = await addRecipe({
-                variables: { ...formData }
-            })
+            // const { data } = await addRecipe({
+            //     variables: { ...formData }
+            // })
 
         } catch (err) {
             console.error(err);
@@ -115,7 +127,9 @@ function RecipeForm({ formData, setFormData }) {
                 {/* Dietary restrictions checkboxes */}
                 <div>
                     <label htmlFor="dietaryRestrictions">Dietary Restrictions</label>
-                    {dietaryRestrictions.map((restriction, index) => <Checkbox key={index} restriction={restriction} />)}
+                    <div id="dietaryRestrictions">
+                        {dietaryRestrictions.map((restriction, index) => <Checkbox key={index} restriction={restriction} />)}
+                    </div>
                 </div>
                 <div>
                     <label htmlFor="ingredients" className="form-label">Ingredients</label>
