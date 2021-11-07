@@ -54,7 +54,7 @@ db.once('open', async () => {
     {
       author: 'Rala',
       title: 'Katsudon',
-      indregients: [
+      ingredients: [
         'Large Eggs - 4',
         'Flour - 40g',
         'Medium Onion - 1',

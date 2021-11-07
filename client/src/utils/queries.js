@@ -64,7 +64,6 @@ export const SEARCH_RECIPES = gql`
       totalPages
       recipes {
         title
-        instructions
         description
         ingredients
         total_time
