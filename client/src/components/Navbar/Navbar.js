@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Modal, Tab } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 import Auth from '../../utils/auth';
 import SignUpForm from '../LoginSignup/SignupForm';
 import LoginForm from '../LoginSignup/LoginForm';
-import { useQuery } from '@apollo/client';
-import { SEARCH_RECIPES } from '../../utils/queries'
+// import { useQuery } from '@apollo/client';
+// import { SEARCH_RECIPES } from '../../utils/queries'
 import styles from './Navbar.module.scss';
 
 function Navigation() {
@@ -17,24 +17,24 @@ function Navigation() {
 
     //const [ search, page, limit ] = useState('');
 
-    const [searchState, setSearchState]=useState('');
-    const [pageState, setPageState]=useState(1);
-    const [limitState, setLimitState]=useState(10);
+    // const [searchState, setSearchState]=useState('');
+    // const [pageState, setPageState]=useState(1);
+    // const [limitState, setLimitState]=useState(10);
 
 
-    //refactor search, page, limit
-    //handleInputChange from previous activities
+    // //refactor search, page, limit
+    // //handleInputChange from previous activities
 
-    const { loading, data } = useQuery(SEARCH_RECIPES, {
-        variables: { search: searchState, page: pageState, limit: limitState }
-    });
+    // const { loading, data } = useQuery(SEARCH_RECIPES, {
+    //     variables: { search: searchState, page: pageState, limit: limitState }
+    // });
 
-    const handleInputChange = (event) => {
-        // let name = event.target.name;
-        let value = event.target.value;
-        // console.log(name, value)
-        setSearchState(value);
-    }
+    // const handleInputChange = (event) => {
+    //     // let name = event.target.name;
+    //     let value = event.target.value;
+    //     // console.log(name, value)
+    //     setSearchState(value);
+    // }
 
     return (
         <>
@@ -61,7 +61,7 @@ function Navigation() {
                             <Nav.Link href="/login">Login/Signup</Nav.Link>
                         </Nav> */}
 
-                        <form className="d-flex col-12 col-lg-6">
+                        {/* <form className="d-flex col-12 col-lg-6">
                             <input
                                 className="form-control me-2"
                                 type="search"
@@ -80,7 +80,7 @@ function Navigation() {
                                 }
                                 }
                             >Search</button>
-                        </form>
+                        </form> */}
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
