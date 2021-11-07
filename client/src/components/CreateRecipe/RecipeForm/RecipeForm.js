@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import Auth from '../../../utils/auth';
-
 import Checkbox from './Checkbox';
 import { ADD_RECIPE } from '../../../utils/mutations';
+import styles from './RecipeForm.module.scss';
 
 function RecipeForm({ formData, setFormData }) {
 
@@ -35,23 +35,9 @@ function RecipeForm({ formData, setFormData }) {
     const [title, setTitle] = useState('');
     const [totalTime, setTotalTime] = useState('');
     const [description, setDescription] = useState('');
-    const [instructions, setInstructions] = useState('');
+    const [instructions, setInstructions] = useState([]);
     const [ingredients, setIngredients] = useState([]);
     const [restriction, setRestriction] = useState([]);
-
-    const editState = () => {
-        setFormData({
-            title,
-            total_time: totalTime,
-            description,
-            instructions,
-            ingredients,
-            dietary_restrictions: restriction
-        })
-
-    }
-
-
 
     // Track input changes in state
     const handleInputChange = (e) => {
@@ -67,23 +53,20 @@ function RecipeForm({ formData, setFormData }) {
         if (name === 'description') {
             setDescription(value)
         }
-        if (name === 'instructions') {
-            setInstructions(value);
-        }
-
-        editState();
-        console.log(formData);
     }
 
-
-    // Add ingredients to an array in state
-    const addIngredient = (e, input) => {
+    // Add ingredients & instructions to their respective arrays in state
+    const addItem = (e, input) => {
         e.preventDefault()
+        let name = input.name;
         let value = input.value;
 
-        setIngredients([...ingredients, value]);
-        console.log('ingredients', ingredients)
-        editState();
+        if (name === 'ingredients') {
+            setIngredients([...ingredients, value]);
+        }
+        if (name === 'instructions') {
+            setInstructions([...instructions, value])
+        }
     }
 
     // Add dietary restriction to state array
@@ -96,13 +79,11 @@ function RecipeForm({ formData, setFormData }) {
         } else (
             setRestriction(restriction.filter(item => item !== value))
         )
-        editState();
-        console.log(formData.dietary_restrictions);
     }
 
     // Create recipe mutation
     const createRecipe = async () => {
-
+        console.log('IN CREATE RECIPE')
         if (!token) {
             return false;
         }
@@ -113,9 +94,8 @@ function RecipeForm({ formData, setFormData }) {
 
         try {
             await addRecipe({
-                variables: { ...formData, author }
+                variables: { title, total_time: totalTime, description, ingredients, instructions, dietary_restrictions: restriction, author }
             })
-
         } catch (err) {
             console.error(err);
         }
@@ -123,7 +103,7 @@ function RecipeForm({ formData, setFormData }) {
 
     return (
         <>
-            <form className="createRecipe">
+            <form className={`${styles.createRecipe} createRecipe`}>
                 <div>
                     <label htmlFor="title" className="form-label">Title</label>
                     <input
@@ -140,7 +120,7 @@ function RecipeForm({ formData, setFormData }) {
                 <div>
                     <label htmlFor="dietaryRestrictions">Dietary Restrictions</label>
                     <div id="dietaryRestrictions">
-                      
+
                         {dietaryRestrictions.map((restriction, index) =>
                             <Checkbox
                                 addRestriction={addRestriction}
@@ -153,7 +133,8 @@ function RecipeForm({ formData, setFormData }) {
                     <input id="ingredients" name="ingredients" aria-describedby=""></input>
                     <button
                         onClick={(e) => {
-                            addIngredient(e, e.target.previousSibling)
+                            addItem(e, e.target.previousSibling);
+                            e.target.previousSibling.value = '';
                         }}
                     >Add</button>
                 </div>
@@ -165,9 +146,14 @@ function RecipeForm({ formData, setFormData }) {
                 </div>
                 <div>
                     <label htmlFor="instructions" className="form-label">Instructions</label>
-                    <textarea
-                        onChange={(e) => handleInputChange(e)}
-                        id="instructions" name="instructions"></textarea>
+                    <input
+                        id="instructions" name="instructions" aria-describedby=""></input>
+                    <button
+                        onClick={(e) => {
+                            addItem(e, e.target.previousSibling);
+                            e.target.previousSibling.value = '';
+                        }}
+                    >Add</button>
                 </div>
                 <button onClick={(e) => {
                     e.preventDefault();

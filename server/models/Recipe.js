@@ -19,7 +19,7 @@ const recipeSchema = new Schema({
         required: true,
     },
     instructions: {
-        type: String,
+        type: [String],
         required: true,
     },
     total_time: {
