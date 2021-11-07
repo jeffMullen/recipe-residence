@@ -37,7 +37,6 @@ function App() {
             <Navbar />
           </header>
           <Home />
-          <Profile />
         </div>
       </Router>
     </ApolloProvider>
@@ -45,3 +44,5 @@ function App() {
 }
 
 export default App;
+
+{/* <Profile /> */}

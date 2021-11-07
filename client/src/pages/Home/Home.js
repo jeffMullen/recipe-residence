@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import styles from './Home.module.scss';
 import { useQuery } from '@apollo/client';
 import { SEARCH_RECIPES } from '../../utils/queries';
-
+import RecipeCard from '../../components/RecipeCard/RecipeCard';
+//import RecipeCard from '../components/RecipeCard';
 
 function Home() {
     // const {loading, data} = useQuery(SEARCH_RECIPES);
@@ -11,6 +12,7 @@ function Home() {
     const [searchState, setSearchState] = useState('');
     const [pageState, setPageState] = useState(1);
     const [limitState, setLimitState] = useState(10);
+    const [recipes, setRecipes] = useState([]);
 
 
     //refactor search, page, limit
@@ -26,6 +28,17 @@ function Home() {
         // console.log(name, value)
         setSearchState(value);
     }
+
+    // async function renderRecipes(recipesArray) {
+
+    //     let recipesToRender = recipesArray.map((recipe) => {
+    //         <RecipeCard key={recipe._id} recipe={recipe} />
+    //     });
+
+
+    //     await setRecipes(recipesArray);
+    //     console.log(recipes);
+    // }
 
     return (
         <>
@@ -47,11 +60,15 @@ function Home() {
                                 type="submit"
                                 onClick={(event) => {
                                     event.preventDefault();
-                                    console.log("*********", data);
+                                    var recipesArray = data.getRecipeTitle.recipes;
+                                    setRecipes(recipesArray);
                                 }
                                 }
                             >Search</button>
                         </form>
+                    </div>
+                    <div>
+                        {recipes.map(recipe => <RecipeCard key={recipe._id} recipe={recipe} />)}
                     </div>
                 </div>
             </div>
@@ -61,3 +78,5 @@ function Home() {
 }
 
 export default Home;
+                        // <RecipeCard>
+                        // </RecipeCard>
