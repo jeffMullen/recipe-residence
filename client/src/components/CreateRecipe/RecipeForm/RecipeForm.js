@@ -140,6 +140,7 @@ function RecipeForm({ formData, setFormData }) {
                 <div>
                     <label htmlFor="dietaryRestrictions">Dietary Restrictions</label>
                     <div id="dietaryRestrictions">
+                      
                         {dietaryRestrictions.map((restriction, index) =>
                             <Checkbox
                                 addRestriction={addRestriction}
