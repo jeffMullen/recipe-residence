@@ -39,8 +39,8 @@ function App() {
             <Navbar />
           </header>
           <Switch>
-              <Route exact path='/' component={Home}/>
-              <Route exact path='/profile' component={Profile}/>
+            <Route exact path='/' component={Home} />
+            <Route exact path='/profile' component={Profile} />
           </Switch>
         </div>
       </Router>
