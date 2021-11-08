@@ -8,7 +8,7 @@ query user($username: String!) {
     _id
     username
     email
-    recipes {
+    saved_recipes {
       _id
       title
       author
@@ -28,7 +28,7 @@ export const GET_ME = gql`
       _id
       username
       email
-      savedRecipes {
+      saved_recipes {
       _id
       title
       author

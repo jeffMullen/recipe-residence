@@ -83,7 +83,7 @@ mutation saveRecipe($_id: ID!, $title: String, $ingredients: [String], $descript
     saveRecipe(recipeId: $_id, title: $title, ingredients: $ingredients, description: $description, instructions: $instructions, total_time: $total_time, dietary_restrictions: $dietary_restrictions){
         _id
         username
-        savedRecipes {
+        saved_recipes {
           _id
           title
           author
@@ -102,7 +102,7 @@ export const REMOVE_RECIPE = gql`
       removeRecipe(recipeId: $recipeId) {
           _id
           username
-          savedRecipes {
+          saved_recipes {
             _id
             title
             author

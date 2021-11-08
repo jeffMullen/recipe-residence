@@ -5,7 +5,9 @@ const typeDefs = gql`
         _id: ID
         username: String
         email: String
+        saved_recipes: [Recipe]
     }
+
     type Recipe {
         _id: ID
         title: String
@@ -22,6 +24,7 @@ const typeDefs = gql`
     type Query {
         recipes: [Recipe]
         getRecipeTitle(search: String, page: Int, limit: Int): RecipeResult
+        me: User
     }
     
     type RecipeResult {
@@ -30,10 +33,10 @@ const typeDefs = gql`
         totalPages: Int
     }
     
-      type Auth {
-          token: ID!
-          user: User
-        }  
+    type Auth {
+        token: ID!
+        user: User
+    }  
 
     type Mutation {
         addUser(username: String!, email: String!, password: String!): Auth

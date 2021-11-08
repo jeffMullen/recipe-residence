@@ -1,31 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RecipeCard from "../components/RecipeCard/RecipeCard";
 import CreateRecipe from '../components/CreateRecipe/CreateRecipe';
+import {gql, useMutation, useQuery} from '@apollo/client';
+import {GET_ME} from '../utils/queries.js';
 
 function Profile() {
 
     let [recipes, setRecipes] = useState([]);
 
-    recipes = [
-        {
-            _id: '1',
-            title: 'Lasagna',
-            ingredients: ['Noodles', 'Mozz', 'Sauce', 'Eggplant'],
-            description: 'Super good Italian flat noodle pie',
-            instructions: 'Boil noodles, put in casserole dish, add sauce and such',
-            total_time: '1hr 30mins',
-            link: 'lasagna.com'
-        },
-        {
-            _id: '2',
-            title: 'Lasagna',
-            ingredients: ['Noodles', 'Mozz', 'Sauce', 'Eggplant'],
-            description: 'Super good Italian flat noodle pie',
-            instructions: 'Boil noodles, put in casserole dish, add sauce and such',
-            total_time: '1hr 30mins',
-            link: 'lasagna.com'
-        }
-    ]
+    const { loading, error, data, refetch} = useQuery(GET_ME);
+    const userData = data?.me || [];  
+  
+    console.log(userData.saved_recipes);
+
+    recipes = userData.saved_recipes||[];
 
     return (
         <>
@@ -33,7 +21,7 @@ function Profile() {
                 <div className="row">
                     {recipes.map(recipe => <RecipeCard key={recipe._id} recipe={recipe} />)}
                 </div>
-                <CreateRecipe />
+                <CreateRecipe refetch={refetch}/>
             </div>
         </>
     )
