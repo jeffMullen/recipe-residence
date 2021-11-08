@@ -13,11 +13,6 @@ function Home() {
     const [pageState, setPageState] = useState(1);
     const [limitState, setLimitState] = useState(10);
     const [recipes, setRecipes] = useState([]);
-
-
-    //refactor search, page, limit
-    //handleInputChange from previous activities
-
     const { loading, data } = useQuery(SEARCH_RECIPES, {
         variables: { search: searchState, page: pageState, limit: limitState }
     });
@@ -28,17 +23,6 @@ function Home() {
         // console.log(name, value)
         setSearchState(value);
     }
-
-    // async function renderRecipes(recipesArray) {
-
-    //     let recipesToRender = recipesArray.map((recipe) => {
-    //         <RecipeCard key={recipe._id} recipe={recipe} />
-    //     });
-
-
-    //     await setRecipes(recipesArray);
-    //     console.log(recipes);
-    // }
 
     return (
         <>

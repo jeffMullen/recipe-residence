@@ -15,27 +15,6 @@ function Navigation() {
     // set modal display state
     const [showModal, setShowModal] = useState(false);
 
-    //const [ search, page, limit ] = useState('');
-
-    // const [searchState, setSearchState]=useState('');
-    // const [pageState, setPageState]=useState(1);
-    // const [limitState, setLimitState]=useState(10);
-
-
-    // //refactor search, page, limit
-    // //handleInputChange from previous activities
-
-    // const { loading, data } = useQuery(SEARCH_RECIPES, {
-    //     variables: { search: searchState, page: pageState, limit: limitState }
-    // });
-
-    // const handleInputChange = (event) => {
-    //     // let name = event.target.name;
-    //     let value = event.target.value;
-    //     // console.log(name, value)
-    //     setSearchState(value);
-    // }
-
     return (
         <>
             <Navbar className={styles.navbarApp} collapseOnSelect expand="lg" variant="light">
@@ -47,8 +26,11 @@ function Navigation() {
                             {/* if user is logged in show saved books and logout */}
                             {Auth.loggedIn() ? (
                                 <>
-                                    <Nav.Link as={Link} to='/saved'>
-                                        See Your Recipes
+                                    <Nav.Link as={Link} to='/'>
+                                        Home
+                                    </Nav.Link>
+                                    <Nav.Link as={Link} to='/profile'>
+                                        My Recipes
                                     </Nav.Link>
                                     <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
                                 </>
@@ -56,31 +38,6 @@ function Navigation() {
                                 <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
                             )}
                         </Nav>
-
-                        {/* <Nav className="me-auto d-lg-flex m-lg-0">
-                            <Nav.Link href="/login">Login/Signup</Nav.Link>
-                        </Nav> */}
-
-                        {/* <form className="d-flex col-12 col-lg-6">
-                            <input
-                                className="form-control me-2"
-                                type="search"
-                                placeholder="Search"
-                                aria-label="Search"
-                                id="dietary-restriction-search"
-                                onChange={(event) => handleInputChange(event)}
-                            ></input>
-                            <button
-                                id="search"
-                                className="btn btn-outline-dark"
-                                type="submit"
-                                onClick={(event) => {
-                                    event.preventDefault();
-                                    console.log("*********", data);
-                                }
-                                }
-                            >Search</button>
-                        </form> */}
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

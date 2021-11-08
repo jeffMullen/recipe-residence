@@ -57,6 +57,14 @@ const resolvers = {
         currentPage: page
       }
     },
+
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOne({ _id: context.user._id });
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -74,7 +82,7 @@ const resolvers = {
         const newRecipe = await Recipe.create({ ...recipe });
         console.log('AFTER RECIPE CREATE')
 
-        await User.findByIdAndUpdate(context.user._id, { $push: { savedRecipes: newRecipe } });
+        await User.findByIdAndUpdate(context.user._id, { $push: { saved_recipes: newRecipe } });
 
         return recipe;
       }
@@ -88,7 +96,7 @@ const resolvers = {
         return User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $addToSet: { savedRecipes: recipe }
+            $addToSet: { saved_recipes: recipe }
           }
         );
       }
@@ -103,7 +111,7 @@ const resolvers = {
           { _id: context.user._id },
           {
             $pull: {
-              savedRecipes: { _id }
+              saved_recipes: { _id }
             }
           },
           { new: true }

@@ -21,8 +21,8 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    // set savedRecipes to be an array of data that adheres to the recipeSchema
-    savedRecipes: {
+    // set saved_recipes to be an array of data that adheres to the recipeSchema
+    saved_recipes: {
       type: [Object]
     },
   },
@@ -51,7 +51,7 @@ userSchema.methods.isCorrectPassword = async function (password) {
 
 // when we query a user, we'll also get another field called `recipeCount` with the number of saved recipes we have
 userSchema.virtual('recipeCount').get(function () {
-  return this.savedRecipes.length;
+  return this.saved_recipes.length;
 });
 
 const User = model('User', userSchema);

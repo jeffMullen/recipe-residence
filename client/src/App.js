@@ -28,7 +28,9 @@ const client = new ApolloClient({
   link: authLink.concat(link),
 });
 
+
 function App() {
+
   return (
     <ApolloProvider client={client}>
       <Router>
@@ -36,7 +38,10 @@ function App() {
           <header className="App-header">
             <Navbar />
           </header>
-          <Home />
+          <Switch>
+              <Route exact path='/' component={Home}/>
+              <Route exact path='/profile' component={Profile}/>
+          </Switch>
         </div>
       </Router>
     </ApolloProvider>
@@ -44,5 +49,3 @@ function App() {
 }
 
 export default App;
-
-{/* <Profile /> */}
