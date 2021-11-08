@@ -5,5 +5,14 @@
 }
 
 .inputLabel {
-    margin-right: 10px;
+    margin-right: 15px;
+    width: 100px;
+}
+
+.dropdown {
+    width: 500px;
+    border: none;
+    .menu {
+        height: 50px;
+    }
 }

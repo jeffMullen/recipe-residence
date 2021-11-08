@@ -10,7 +10,7 @@ function RecipeCard({ recipe }) {
 
     return (
         <>
-            <div className={`col-12 col-sm-6 col-md-4 col-lg-3`}>
+            <div className={`mb-5 col-12 col-sm-6 col-md-4 col-lg-3`}>
                 <Link
                     className={`${styles.recipeLink}`}
                     to={`/recipes/${link}`}>

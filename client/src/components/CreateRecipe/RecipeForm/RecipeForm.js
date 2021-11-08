@@ -106,31 +106,58 @@ function RecipeForm({ formData, setFormData, refetch }) {
         <>
             <form className={`${styles.createRecipe} createRecipe`}>
                 <div>
-                    <label htmlFor="title" className="form-label">Title</label>
+                    <label htmlFor="title" className={`${styles.inputLabel} form-label`}>Title</label>
                     <input
                         onChange={(e) => handleInputChange(e)}
                         id="title" name="title" aria-describedby=""></input>
                 </div>
                 <div>
-                    <label htmlFor="totalTime" className="form-label">Total Time</label>
+                    <label htmlFor="totalTime" className={`${styles.inputLabel} form-label`}>Total Time</label>
                     <input
                         onChange={(e) => handleInputChange(e)}
                         id="totalTime" name="totalTime" aria-describedby=""></input>
                 </div>
                 {/* Dietary restrictions checkboxes */}
-                <div>
-                    <label htmlFor="dietaryRestrictions">Dietary Restrictions</label>
-                    <div id="dietaryRestrictions">
+                <div className="dropdown">
+                    <button className={`${styles.dropdown} dropdown-toggle`} type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dietary Restrictions
+                    </button>
+                    {/* <ul className={`${styles.menu} dropdown-menu`} aria-labelledby="dropdownMenuButton1"> */}
+                    <div id="dietaryRestrictions"
+                        className={`${styles.menu} dropdown-menu`} aria-labelledby="dropdownMenuButton1">
 
                         {dietaryRestrictions.map((restriction, index) =>
                             <Checkbox
+                                className={styles.menu}
                                 addRestriction={addRestriction}
                                 key={index}
                                 restriction={restriction} />)}
                     </div>
+                    {/* </ul> */}
                 </div>
+                {/* <div className="accordion accordion-flush">
+                    <div className="accordion-item">
+                        <h2 className="accordion-header" id="headingOne">
+                            <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Dietary Restrictions
+                            </button>
+                        </h2>
+                        <div id="collapseOne" className="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div className="accordion-body">
+                                <div id="dietaryRestrictions">
+
+                                    {dietaryRestrictions.map((restriction, index) =>
+                                        <Checkbox
+                                            addRestriction={addRestriction}
+                                            key={index}
+                                            restriction={restriction} />)}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> */}
                 <div>
-                    <label htmlFor="ingredients" className="form-label">Ingredients</label>
+                    <label htmlFor="ingredients" className={`${styles.inputLabel} form-label`}>Ingredients</label>
                     <input id="ingredients" name="ingredients" aria-describedby=""></input>
                     <button
                         onClick={(e) => {
@@ -140,13 +167,13 @@ function RecipeForm({ formData, setFormData, refetch }) {
                     >Add</button>
                 </div>
                 <div>
-                    <label htmlFor="description" className="form-label">Description</label>
+                    <label htmlFor="description" className={`${styles.inputLabel} form-label`}>Description</label>
                     <input
                         onChange={(e) => handleInputChange(e)}
                         id="description" name="description" aria-describedby=""></input>
                 </div>
                 <div>
-                    <label htmlFor="instructions" className="form-label">Instructions</label>
+                    <label htmlFor="instructions" className={`${styles.inputLabel} form-label`}>Instructions</label>
                     <input
                         id="instructions" name="instructions" aria-describedby=""></input>
                     <button

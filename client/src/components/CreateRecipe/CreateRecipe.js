@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
 import RenderedRecipe from './RenderedRecipe/RenderedRecipe';
 import RecipeForm from './RecipeForm/RecipeForm';
