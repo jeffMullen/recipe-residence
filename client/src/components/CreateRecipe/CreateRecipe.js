@@ -3,26 +3,17 @@ import React, { useState } from 'react';
 import RenderedRecipe from './RenderedRecipe/RenderedRecipe';
 import RecipeForm from './RecipeForm/RecipeForm';
 
-function CreateRecipe() {
+function CreateRecipe({refetch}) {
 
-    const [formData, setFormData] = useState({
-        // _id: '',
-        // author: '',
-        // title: '',
-        // ingredients: [],
-        // description: '',
-        // instructions: '',
-        // total_time: '',
-        // dietary_restrictions: [],
-        // link: ''
-    });
-
-    // console.log(formData);
+    const [formData, setFormData] = useState({});
 
     return (
         <>
-            {/* <RenderedRecipe /> */}
-            <RecipeForm formData={formData} setFormData={setFormData} />
+            <RecipeForm 
+            formData={formData} 
+            setFormData={setFormData} 
+            refetch={refetch}
+            />
         </>
     )
 }

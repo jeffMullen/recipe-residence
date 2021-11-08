@@ -5,7 +5,7 @@ import Checkbox from './Checkbox';
 import { ADD_RECIPE } from '../../../utils/mutations';
 import styles from './RecipeForm.module.scss';
 
-function RecipeForm({ formData, setFormData }) {
+function RecipeForm({ formData, setFormData, refetch }) {
 
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -96,6 +96,7 @@ function RecipeForm({ formData, setFormData }) {
             await addRecipe({
                 variables: { title, total_time: totalTime, description, ingredients, instructions, dietary_restrictions: restriction, author }
             })
+            await refetch();
         } catch (err) {
             console.error(err);
         }
