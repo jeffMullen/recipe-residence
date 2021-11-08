@@ -42,7 +42,7 @@ function App() {
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/profile' component={Profile} />
-
+            <Route path='/recipes/:recipeId' component={SingleRecipe} />
           </Switch>
         </div>
       </Router>

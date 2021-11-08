@@ -73,15 +73,15 @@ export const SEARCH_RECIPES = gql`
   }`;
 
 export const GET_SINGLE_RECIPE = gql`
-  query recipe($recipeId: ID!) {
-    recipe(recipeId: $recipeId) {
-    _id
-    title
-    author
-    ingredients
-    description
-    instructions
-    total_time
-    dietary_restrictions
+  query getSingleRecipe($recipeId: ID!) {
+    getSingleRecipe(recipeId: $recipeId) {
+      _id
+      title
+      author
+      ingredients
+      description
+      instructions
+      total_time
+      dietary_restrictions
   }
 }`;
