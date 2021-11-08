@@ -58,6 +58,13 @@ const resolvers = {
       }
     },
 
+    getSingleRecipe: async (_, args) => {
+      const { recipeId } = args;
+
+      return Recipe.findById(recipeId);
+
+    },
+
     me: async (parent, args, context) => {
       if (context.user) {
         return User.findOne({ _id: context.user._id });

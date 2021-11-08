@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
-import { GET_SINGLE_RECIPE } from '../utils/queries';
+import { GET_SINGLE_RECIPE } from '../../utils/queries';
 
 const SingleRecipe = () => {
     const { recipeId } = useParams();

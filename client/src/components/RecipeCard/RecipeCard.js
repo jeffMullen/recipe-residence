@@ -6,14 +6,14 @@ import recipeImg from '../../images/recipe-placeholder.jpg';
 
 function RecipeCard({ recipe }) {
 
-    const { title, ingredients, description, instructions, total_time, link } = recipe;
-
+    const { _id, title, ingredients, description, instructions, total_time, link } = recipe;
+    console.log(_id)
     return (
         <>
             <div className={`col-12 col-sm-6 col-md-4 col-lg-3`}>
                 <Link
                     className={`${styles.recipeLink}`}
-                    to={`/recipes/${link}`}>
+                    to={`/recipes/${_id}`}>
                     <div className={`${styles.recipeCard} card`}>
                         <img src={recipeImg} className="card-img-top" alt="..."></img>
                         <div className={`${styles.cardBody} card-body`}>

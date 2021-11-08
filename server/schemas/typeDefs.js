@@ -19,11 +19,11 @@ const typeDefs = gql`
         link: String
         author: String
     }
-
     
     type Query {
         recipes: [Recipe]
         getRecipeTitle(search: String, page: Int, limit: Int): RecipeResult
+        getSingleRecipe(recipeId: ID!): Recipe
         me: User
     }
     
