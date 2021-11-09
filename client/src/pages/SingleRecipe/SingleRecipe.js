@@ -124,7 +124,7 @@ const SingleRecipe = () => {
 
         try {
             await updateRecipe({
-                variables: { _id, title: recipeTitle, total_time: totalTime, description: recipeDescription, ingredients: recipeIngredients, instructions: recipeInstructions, dietary_restrictions: restrictions }
+                variables: { _id, author, title: recipeTitle, total_time: totalTime, description: recipeDescription, ingredients: recipeIngredients, instructions: recipeInstructions, dietary_restrictions: restrictions }
             })
             await refetch();
         } catch (err) {
@@ -225,9 +225,7 @@ const SingleRecipe = () => {
                                             onClick={(e) => {
 
                                                 handleDelete(e, e.target.previousSibling)
-                                            }}>
-                                            X
-                                        </button>
+                                            }}>X</button>
                                     </div>
                                 )}
                             </ul>
@@ -258,9 +256,7 @@ const SingleRecipe = () => {
                                             onClick={(e) => {
 
                                                 handleDelete(e, e.target.previousSibling)
-                                            }}>
-                                            X
-                                        </button>
+                                            }}>X</button>
                                     </div>
                                 )}
                             </ul>
@@ -310,8 +306,7 @@ const SingleRecipe = () => {
                                     onClick={(e) => {
                                         addItem(e, e.target.previousSibling);
                                         e.target.previousSibling.value = '';
-                                    }}
-                                >Add</button>
+                                    }}>Add</button>
                             </div>
                         </div>
 
@@ -330,36 +325,38 @@ const SingleRecipe = () => {
 
                 :
 
+                null
+
                 // If recipe is not authored by user, show standard recipe
-                <div className={`${styles.recipe} my-3 mx-3`}>
-                    <h3>
-                        {title}
-                    </h3>
-                    <div>
-                        <p>{total_time}</p>
-                    </div>
-                    <Link to={`/profiles/${author}`}>
-                        {author}
-                    </Link>
-                    <div>
-                        <p>{description}</p>
-                    </div>
-                    <div>
-                        <ul>
-                            {dietary_restrictions.map((restriction, index) => <li key={index}>{restriction}</li>)}
-                        </ul>
-                    </div>
-                    <div>
-                        <ul>
-                            {ingredients.map((ingredient, index) => <li key={index}>{ingredient}</li>)}
-                        </ul>
-                    </div>
-                    <div>
-                        <ol>
-                            {instructions.map((instruction, index) => <li key={index}>{instruction}</li>)}
-                        </ol>
-                    </div>
-                </div>
+                // <div className={`${styles.recipe} my-3 mx-3`}>
+                //     <h3>
+                //         {title}
+                //     </h3>
+                //     <div>
+                //         <p>{total_time}</p>
+                //     </div>
+                //     <Link to={`/profiles/${author}`}>
+                //         {author}
+                //     </Link>
+                //     <div>
+                //         <p>{description}</p>
+                //     </div>
+                //     <div>
+                //         <ul>
+                //             {dietary_restrictions.map((restriction, index) => <li key={index}>{restriction}</li>)}
+                //         </ul>
+                //     </div>
+                //     <div>
+                //         <ul>
+                //             {ingredients.map((ingredient, index) => <li key={index}>{ingredient}</li>)}
+                //         </ul>
+                //     </div>
+                //     <div>
+                //         <ol>
+                //             {instructions.map((instruction, index) => <li key={index}>{instruction}</li>)}
+                //         </ol>
+                //     </div>
+                // </div>
 
             }
         </>

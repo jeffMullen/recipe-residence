@@ -99,8 +99,8 @@ const resolvers = {
     },
 
     updateRecipe: async (parent, { _id, title, total_time, description, ingredients, instructions, dietary_restrictions, author }, context) => {
-      const recipe = { title, ingredients, description, instructions, total_time, dietary_restrictions, author };
 
+      const recipe = { title, ingredients, description, instructions, total_time, dietary_restrictions, author };
 
       if (context.user) {
         const updatedRecipe = await Recipe.findOneAndUpdate(
@@ -111,8 +111,82 @@ const resolvers = {
 
         console.log("RECIPE UPDATED -- BEFORE USER UPDATE")
 
+        // await User.findOneAndUpdate(
+        //   {
+        //     _id: context.user._id,
+        //     'saved_recipes._id': _id
+        //   },
+        //   {
+        //     $set: {
+        //       'saved_recipes.$.title': title,
+        //       'saved_recipes.$.total_time': total_time,
+        //       'saved_recipes.$.description': description,
+        //       'saved_recipes.$.ingredients': ingredients,
+        //       'saved_recipes.$.instructions': instructions,
+        //       'saved_recipes.$.dietary_restrictions': dietary_restrictions,
+        //       'saved_recipes.$.author': author
 
-        return updatedRecipe;
+        //     }
+        //   },
+        //   { new: true }
+        // )
+
+        // await User.findOneAndUpdate(
+        //   {
+        //     _id: context.user._id,
+        //     'saved_recipes._id': _id
+        //   },
+        //   {
+        //     title: {
+        //       title
+        //     }
+        //   }
+        // );
+
+        // return await User.findByIdAndUpdate(
+        //   {
+        //     _id: context.user._id,
+        //     saved_recipes:
+        //     {
+        //       $elemMatch: { _id: _id }
+        //     }
+        //   },
+        //   {
+        //     $set: {
+        //       saved_recipes: {
+        //         ...recipe, _id
+        //       }
+        //     }
+        //   },
+        //   {
+        //     new: true,
+        //     safe: true,
+        //     upsert: true
+        //   }
+        // )
+
+        await User.updateOne(
+          {
+            _id: context.user._id,
+            "save_recipes._id": _id
+          },
+          {
+            $set: {
+
+              "saved_recipes.$.title": title,
+              "saved_recipes.$.total_time": total_time,
+              "saved_recipes.$.description": description,
+              "saved_recipes.$.ingredients": ingredients,
+              "saved_recipes.$.instructions": instructions,
+              "saved_recipes.$.dietary_restrictions": dietary_restrictions,
+              "saved_recipes.$.author": author
+            }
+          },
+          { new: true }
+        )
+
+        console.log(context.user)
+
 
       }
       throw new AuthenticationError('Not logged in');

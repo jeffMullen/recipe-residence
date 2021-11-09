@@ -1,20 +1,27 @@
 import React from 'react';
 import styles from './RecipeCard.module.scss';
-
 import { Link } from 'react-router-dom';
 import recipeImg from '../../images/recipe-placeholder.jpg';
+import { useMutation } from '@apollo/client';
+import { REMOVE_RECIPE } from '../../utils/mutations.js';
 
-function RecipeCard({ recipe }) {
 
-    const { _id, title, ingredients, description, instructions, total_time, link } = recipe;
-    console.log(_id)
+function RecipeCard({ recipe, showDelete }) {
+
+    const { title, ingredients, description, instructions, total_time, link } = recipe;
+    const [removeRecipe, { error, data }] = useMutation(REMOVE_RECIPE);
+
+    async function deleteRecipe(recipeId) {
+        await removeRecipe({ variables: { _id: recipeId } })
+    }
+
     return (
         <>
             <div className={`col-12 col-sm-6 col-md-4 col-lg-3`}>
-                <button>Delete Recipe</button>
+                {showDelete ? <button onClick={() => deleteRecipe(recipe._id)}>Remove From Collection</button> : ""}
                 <Link
                     className={`${styles.recipeLink}`}
-                    to={`/recipes/${_id}`}>
+                    to={`/recipes/${recipe._id}`}>
                     <div className={`${styles.recipeCard} card`}>
                         <div className={`${styles.recipeImgContainer}`}>
                             <img src={recipeImg} className={`${styles.recipeImg} card-img-top`} alt="..."></img>
@@ -24,7 +31,13 @@ function RecipeCard({ recipe }) {
                                 <h5 className="card-title">{title}</h5>
                                 <p>{total_time}</p>
                                 <p>{description}</p>
-                                <ul className="card-text">{ingredients.map((ingredient, index) => <li key={index}>{ingredient}</li>)}</ul>
+                                {ingredients ?
+                                    <ul className="card-text">{ingredients.map((ingredient, index) => <li key={index}>{ingredient}</li>)}</ul>
+
+                                    :
+
+                                    null
+                                }
                                 <p className="card-text">{instructions}</p>
                             </div>
                             <div className={styles.fade}></div>

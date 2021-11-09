@@ -52,7 +52,7 @@ function Home() {
                         </form>
                     </div>
                     <div className={`${styles.recipes} row mt-5 d-flex justify-content-around`}>
-                        {recipes.map(recipe => <RecipeCard key={recipe._id} recipe={recipe} />)}
+                        {recipes.map(recipe => <RecipeCard key={recipe._id} recipe={recipe} showDelete={false} />)}
                     </div>
                 </div>
             </div>
