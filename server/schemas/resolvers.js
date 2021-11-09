@@ -92,7 +92,7 @@ const resolvers = {
     },
 
     saveRecipe: async (parent, { _id, title, author, description, ingredients, instructions, total_time, dietary_restrictions, link }, context) => {
-      const recipe = { _id, title, author, description, ingredients, instructions, total_time, dietary_restrictions, link };
+      const recipe = { _id : mongoose.Types.ObjectId(_id), title, author, description, ingredients, instructions, total_time, dietary_restrictions, link };
       if (context.user) {
         console.log(recipe);
         return await User.findOneAndUpdate(

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Home.module.scss';
 import { useQuery } from '@apollo/client';
-import { SEARCH_RECIPES } from '../../utils/queries';
+import { SEARCH_RECIPES, GET_ME } from '../../utils/queries';
 import RecipeCard from '../../components/RecipeCard/RecipeCard';
 //import RecipeCard from '../components/RecipeCard';
 
@@ -9,6 +9,7 @@ function Home() {
     // const {loading, data} = useQuery(SEARCH_RECIPES);
     // console.log("GOT DATA?",data);
 
+    const { loading: getMeLoading, error: getMeError, data: getMeData, refetch } = useQuery(GET_ME);
     const [searchState, setSearchState] = useState('');
     const [pageState, setPageState] = useState(1);
     const [limitState, setLimitState] = useState(10);
@@ -22,6 +23,17 @@ function Home() {
         let value = event.target.value;
         // console.log(name, value)
         setSearchState(value);
+    }
+
+    const myRecipes = getMeData?.me.saved_recipes;
+
+    function compareRecipeIds(currentId){
+        for(let i=0; i<myRecipes.length; i++){
+            if(myRecipes[i]._id===currentId){
+                return false
+            }
+        }
+        return true
     }
 
     return (
@@ -52,7 +64,12 @@ function Home() {
                         </form>
                     </div>
                     <div className={`${styles.recipes} row mt-5 d-flex justify-content-around`}>
-                        {recipes.map(recipe => <RecipeCard key={recipe._id} recipe={recipe} showDelete={false} />)}
+                        {recipes.map(recipe => <RecipeCard
+                            key={recipe._id}
+                            recipe={recipe}
+                            showDelete={false}
+                            showSave={()=>compareRecipeIds(recipe._id)}
+                        />)}
                     </div>
                 </div>
             </div>
