@@ -28,6 +28,7 @@ function Home() {
     const myRecipes = getMeData?.me.saved_recipes;
 
     function compareRecipeIds(currentId){
+        if (getMeData === undefined) return false;
         for(let i=0; i<myRecipes.length; i++){
             if(myRecipes[i]._id===currentId){
                 return false
