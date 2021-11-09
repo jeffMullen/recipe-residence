@@ -98,8 +98,28 @@ const resolvers = {
       throw new AuthenticationError('Not logged in');
     },
 
-    saveRecipe: async (parent, { _id, title, author, description, ingredients, instructions, total_time, dietary_restrictions, link }, context) => {
-      const recipe = { _id, title, author, description, ingredients, instructions, total_time, dietary_restrictions, link };
+    updateRecipe: async (parent, { _id, title, total_time, description, ingredients, instructions, dietary_restrictions, author }, context) => {
+      const recipe = { title, ingredients, description, instructions, total_time, dietary_restrictions, author };
+
+
+      if (context.user) {
+        const updatedRecipe = await Recipe.findOneAndUpdate(
+          { _id },
+          { ...recipe },
+          { new: true }
+        );
+
+        console.log("RECIPE UPDATED -- BEFORE USER UPDATE")
+
+
+        return updatedRecipe;
+
+      }
+      throw new AuthenticationError('Not logged in');
+    },
+
+    saveRecipe: async (parent, { _id, title, description, ingredients, instructions, total_time, dietary_restrictions, link }, context) => {
+      const recipe = { _id, title, description, ingredients, instructions, total_time, dietary_restrictions, link };
       if (context.user) {
         return User.findOneAndUpdate(
           { _id: context.user._id },
@@ -116,11 +136,11 @@ const resolvers = {
       if (context.user) {
         return User.findOneAndUpdate(
           {
-            _id : context.user._id
+            _id: context.user._id
           },
           {
             $pull: {
-              saved_recipes: { _id : mongoose.Types.ObjectId(_id) }
+              saved_recipes: { _id: mongoose.Types.ObjectId(_id) }
             }
           },
           { new: true }

@@ -1,24 +1,30 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import Auth from '../../utils/auth';
+import dietaryRestrictions from '../../utils/dietaryRestrictions';
+import Checkbox from '../../components/CreateRecipe/RecipeForm/Checkbox';
 import styles from './SingleRecipe.module.scss';
 
 import { GET_SINGLE_RECIPE, GET_ME } from '../../utils/queries';
+import { UPDATE_RECIPE } from '../../utils/mutations';
 
 const SingleRecipe = () => {
     const { recipeId } = useParams();
 
-    const { loading, data } = useQuery(GET_SINGLE_RECIPE, {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    const { loading, data, refetch } = useQuery(GET_SINGLE_RECIPE, {
         variables: { recipeId },
     });
+
+    const [updateRecipe, { error, data: updateData }] = useMutation(UPDATE_RECIPE, token);
 
     const recipe = data?.getSingleRecipe || {};
     console.log(recipe);
 
-    const { author, description, dietary_restrictions, total_time, title, instructions, ingredients } = recipe;
+    const { _id, author, description, dietary_restrictions, total_time, title, instructions, ingredients } = recipe;
 
     const [recipeTitle, setRecipeTitle] = useState(title);
     const [totalTime, setTotalTime] = useState(total_time);
@@ -27,6 +33,7 @@ const SingleRecipe = () => {
     const [recipeIngredients, setRecipeIngredients] = useState(ingredients);
     const [restrictions, setRestrictions] = useState(dietary_restrictions);
 
+    // Delete items from arrays in state
     const handleDelete = (e, item) => {
         e.preventDefault();
         let name = item.getAttribute('name');
@@ -64,6 +71,7 @@ const SingleRecipe = () => {
         }
     }
 
+    // Change states of Title, Total Time, and Description
     const handleInputChange = (e, input) => {
         e.preventDefault();
         let name = input.name;
@@ -81,6 +89,50 @@ const SingleRecipe = () => {
         }
     }
 
+    // Add items to Ingredients and Instructions state arrays
+    const addItem = (e, input) => {
+        e.preventDefault()
+        let name = input.name;
+        let value = input.value;
+
+        if (name === 'ingredients') {
+            setRecipeIngredients([...recipeIngredients, value]);
+        }
+        if (name === 'instructions') {
+            setRecipeInstructions([...recipeInstructions, value])
+        }
+    }
+
+    // Add Restrictions to array in state
+    const addRestriction = (e) => {
+        console.log(e.target.value)
+        let value = e.target.value;
+
+        if (e.target.checked === true) {
+            setRestrictions([...restrictions, value])
+        } else (
+            setRestrictions(restrictions.filter(item => item !== value))
+        )
+    }
+
+    // Create recipe mutation
+    const handleUpdateRecipe = async () => {
+        console.log('IN UPDATE RECIPE')
+        if (!token) {
+            return false;
+        }
+
+        try {
+            await updateRecipe({
+                variables: { _id, title: recipeTitle, total_time: totalTime, description: recipeDescription, ingredients: recipeIngredients, instructions: recipeInstructions, dietary_restrictions: restrictions }
+            })
+            await refetch();
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    // Get user data for Admin validation
     const { loading: getMeLoading, data: getMeData } = useQuery(GET_ME);
     console.log(getMeData);
 
@@ -88,6 +140,7 @@ const SingleRecipe = () => {
         return <div>Loading...</div>
     }
 
+    // Set user's saved recipes to variable
     let savedRecipes = getMeData?.me?.saved_recipes;
     console.log(savedRecipes);
 
@@ -178,6 +231,14 @@ const SingleRecipe = () => {
                                     </div>
                                 )}
                             </ul>
+                            <div id="dietaryRestrictions">
+
+                                {dietaryRestrictions.map((restriction, index) =>
+                                    <Checkbox
+                                        addRestriction={addRestriction}
+                                        key={index}
+                                        restriction={restriction} />)}
+                            </div>
                         </div>
 
                         :
@@ -203,7 +264,19 @@ const SingleRecipe = () => {
                                     </div>
                                 )}
                             </ul>
+                            <div>
+                                <label htmlFor="ingredients" className="form-label">Ingredients</label>
+                                <input
+                                    id="ingredients" name="ingredients" aria-describedby=""></input>
+                                <button
+                                    onClick={(e) => {
+                                        addItem(e, e.target.previousSibling);
+                                        e.target.previousSibling.value = '';
+                                    }}
+                                >Add</button>
+                            </div>
                         </div>
+
 
                         :
 
@@ -229,6 +302,17 @@ const SingleRecipe = () => {
                                     </div>
                                 )}
                             </ol>
+                            <div>
+                                <label htmlFor="instructions" className="form-label">Instructions</label>
+                                <input
+                                    id="instructions" name="instructions" aria-describedby=""></input>
+                                <button
+                                    onClick={(e) => {
+                                        addItem(e, e.target.previousSibling);
+                                        e.target.previousSibling.value = '';
+                                    }}
+                                >Add</button>
+                            </div>
                         </div>
 
                         :
@@ -236,6 +320,12 @@ const SingleRecipe = () => {
                         <div></div>
 
                     }
+                    <button onClick={(e) => {
+                        e.preventDefault();
+                        handleUpdateRecipe();
+                    }}
+                        type="submit"
+                    >Submit Updated Recipe</button>
                 </div>
 
                 :
