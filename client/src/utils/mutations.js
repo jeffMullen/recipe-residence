@@ -79,7 +79,7 @@ mutation saveRecipe($_id: ID!, $title: String, $ingredients: [String], $descript
 `;
 
 export const REMOVE_RECIPE = gql`
-  mutation removeRecipe($_id: ID!) {
+  mutation removeRecipe($_id: String!) {
       removeRecipe(_id: $_id) {
           _id
           username

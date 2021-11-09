@@ -19,7 +19,7 @@ function Profile() {
         <>
             <div className="profile-page container mt-5">
                 <div className="row">
-                    {recipes.map(recipe => <RecipeCard key={recipe._id} recipe={recipe} />)}
+                    {recipes.map(recipe => <RecipeCard key={recipe._id} recipe={recipe} showDelete={true} />)}
                 </div>
                 <CreateRecipe refetch={refetch}/>
             </div>
