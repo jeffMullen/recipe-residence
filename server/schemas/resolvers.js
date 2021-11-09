@@ -72,7 +72,6 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -102,10 +101,11 @@ const resolvers = {
 
       const recipe = { title, ingredients, description, instructions, total_time, dietary_restrictions, author };
 
+      console.log('IN RESOLVERS')
       if (context.user) {
         const updatedRecipe = await Recipe.findOneAndUpdate(
           { _id },
-          { ...recipe },
+          { ...recipe, _id },
           { new: true }
         );
 
@@ -165,25 +165,25 @@ const resolvers = {
         //   }
         // )
 
-        await User.updateOne(
-          {
-            _id: context.user._id,
-            "save_recipes._id": _id
-          },
-          {
-            $set: {
+        // await User.updateOne(
+        //   {
+        //     _id: context.user._id,
+        //     "save_recipes._id": _id
+        //   },
+        //   {
+        //     $set: {
 
-              "saved_recipes.$.title": title,
-              "saved_recipes.$.total_time": total_time,
-              "saved_recipes.$.description": description,
-              "saved_recipes.$.ingredients": ingredients,
-              "saved_recipes.$.instructions": instructions,
-              "saved_recipes.$.dietary_restrictions": dietary_restrictions,
-              "saved_recipes.$.author": author
-            }
-          },
-          { new: true }
-        )
+        //       "saved_recipes.$.title": title,
+        //       "saved_recipes.$.total_time": total_time,
+        //       "saved_recipes.$.description": description,
+        //       "saved_recipes.$.ingredients": ingredients,
+        //       "saved_recipes.$.instructions": instructions,
+        //       "saved_recipes.$.dietary_restrictions": dietary_restrictions,
+        //       "saved_recipes.$.author": author
+        //     }
+        //   },
+        //   { new: true }
+        // )
 
         console.log(context.user)
 
@@ -192,10 +192,11 @@ const resolvers = {
       throw new AuthenticationError('Not logged in');
     },
 
-    saveRecipe: async (parent, { _id, title, description, ingredients, instructions, total_time, dietary_restrictions, link }, context) => {
-      const recipe = { _id, title, description, ingredients, instructions, total_time, dietary_restrictions, link };
+    saveRecipe: async (parent, { _id, title, author, description, ingredients, instructions, total_time, dietary_restrictions, link }, context) => {
+      const recipe = { _id: mongoose.Types.ObjectId(_id), title, author, description, ingredients, instructions, total_time, dietary_restrictions, link };
       if (context.user) {
-        return User.findOneAndUpdate(
+        console.log(recipe);
+        return await User.findOneAndUpdate(
           { _id: context.user._id },
           {
             $addToSet: { saved_recipes: recipe }

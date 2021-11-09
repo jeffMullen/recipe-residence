@@ -1,24 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './RecipeCard.module.scss';
 import { Link } from 'react-router-dom';
 import recipeImg from '../../images/recipe-placeholder.jpg';
 import { useMutation } from '@apollo/client';
 import { REMOVE_RECIPE } from '../../utils/mutations.js';
+import { SAVE_RECIPE } from '../../utils/mutations.js';
 
 
-function RecipeCard({ recipe, showDelete }) {
+function RecipeCard({ recipe, showDelete, showSave }) {
 
     const { title, ingredients, description, instructions, total_time, link } = recipe;
     const [removeRecipe, { error, data }] = useMutation(REMOVE_RECIPE);
+    const [saveRecipe, { error: saveError, data: saveData }] = useMutation(SAVE_RECIPE);
+    const [viewSave, setViewSave] = useState(showSave);
 
     async function deleteRecipe(recipeId) {
         await removeRecipe({ variables: { _id: recipeId } })
+    }
+
+    async function saveToCollection(recipe) {
+        console.log(recipe);
+        await saveRecipe({ variables: recipe });
     }
 
     return (
         <>
             <div className={`col-12 col-sm-6 col-md-4 col-lg-3`}>
                 {showDelete ? <button onClick={() => deleteRecipe(recipe._id)}>Remove From Collection</button> : ""}
+                {viewSave ? <button
+                    onClick={() => {
+                        saveToCollection(recipe);
+                        setViewSave(false);
+                    }}>Save To Collection</button> : ""}
                 <Link
                     className={`${styles.recipeLink}`}
                     to={`/recipes/${recipe._id}`}>

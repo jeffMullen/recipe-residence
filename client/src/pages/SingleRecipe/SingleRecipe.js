@@ -22,9 +22,10 @@ const SingleRecipe = () => {
     const [updateRecipe, { error, data: updateData }] = useMutation(UPDATE_RECIPE, token);
 
     const recipe = data?.getSingleRecipe || {};
-    console.log(recipe);
+    console.log('recipe', recipe);
 
     const { _id, author, description, dietary_restrictions, total_time, title, instructions, ingredients } = recipe;
+    
 
     const [recipeTitle, setRecipeTitle] = useState(title);
     const [totalTime, setTotalTime] = useState(total_time);
@@ -162,7 +163,7 @@ const SingleRecipe = () => {
 
     Auth.loggedIn() && admin ? console.log('ADMIN') : console.log('NO ACCESS');
 
-
+    
     if (loading) {
         return <div>Loading...</div>;
     }

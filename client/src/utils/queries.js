@@ -63,11 +63,14 @@ export const SEARCH_RECIPES = gql`
       currentPage
       totalPages
       recipes {
+        _id
         title
-        description
+        author
         ingredients
+        description
+        instructions
         total_time
-        link
+        dietary_restrictions
       }
     }
   }`;
