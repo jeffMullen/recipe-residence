@@ -1,6 +1,28 @@
 .recipe {
+    // padding: 30px;
     background: linear-gradient(white, white) padding-box,
     linear-gradient(#FFE2AD, orange) border-box;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
 }
 
+.listItemContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .listItem {
+        display: inline;
+        list-style-type: circle;
+        margin-right: 15px;
+    }
+    .deleteButton {
+        font-size: .8rem;
+        display: inline;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+}
+
+.dietaryRestrictions {
+    display: flex;
+    justify-content: space-around;
+}
