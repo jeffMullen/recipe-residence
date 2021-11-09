@@ -59,25 +59,6 @@ export const UPDATE_RECIPE = gql`
   }
 `;
 
-export const DELETE_RECIPE = gql`
-  mutation deleteRecipe($recipeId: ID!) {
-    deleteRecipe(recipeId: $recipeId) {
-      _id
-      username
-      recipe {
-        _id
-        title
-        author
-        ingredients
-        description
-        instructions
-        total_time
-        dietary_restrictions
-      }
-    }
-  }
-`;
-
 export const SAVE_RECIPE = gql`
 mutation saveRecipe($_id: ID!, $title: String, $ingredients: [String], $description: String, $instructions: String, $total_time: String, $dietry_restrictions: [DietaryRestrictions]) {
     saveRecipe(recipeId: $_id, title: $title, ingredients: $ingredients, description: $description, instructions: $instructions, total_time: $total_time, dietary_restrictions: $dietary_restrictions){
@@ -98,8 +79,8 @@ mutation saveRecipe($_id: ID!, $title: String, $ingredients: [String], $descript
 `;
 
 export const REMOVE_RECIPE = gql`
-  mutation removeRecipe($recipeId: ID!) {
-      removeRecipe(recipeId: $recipeId) {
+  mutation removeRecipe($_id: ID!) {
+      removeRecipe(_id: $_id) {
           _id
           username
           saved_recipes {
