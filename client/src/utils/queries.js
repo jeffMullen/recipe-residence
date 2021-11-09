@@ -29,14 +29,14 @@ export const GET_ME = gql`
       username
       email
       saved_recipes {
-      _id
-      title
-      author
-      ingredients
-      description
-      instructions
-      total_time
-      dietary_restrictions
+        _id
+        title
+        author
+        ingredients
+        description
+        instructions
+        total_time
+        dietary_restrictions
       }
     }
   }

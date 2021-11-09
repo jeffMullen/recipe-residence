@@ -28,10 +28,10 @@ function Home() {
         <>
             <div className={`${styles.homeBanner} container-fluid`}>
                 <div className={`${styles.heroContainer} row w-100`}>
-                    <div className={`${styles.heroImage} col`}>
-                        <form className={`d-flex col-12 col-lg-6 ${styles.searchForm}`}>
+                    <div className={`${styles.heroImage} col d-flex justify-content-center align-items-center`}>
+                        <form className={`d-flex flex-column align-items-center col-10 col-sm-6 col-lg-4 ${styles.searchForm}`}>
                             <input
-                                className="form-control me-2"
+                                className={`${styles.searchField} form-control me-2`}
                                 type="search"
                                 placeholder="Search"
                                 aria-label="Search"
@@ -40,7 +40,7 @@ function Home() {
                             ></input>
                             <button
                                 id="search"
-                                className="btn btn-outline-dark"
+                                className={`${styles.searchButton} btn btn-outline-dark`}
                                 type="submit"
                                 onClick={(event) => {
                                     event.preventDefault();
@@ -51,16 +51,13 @@ function Home() {
                             >Search</button>
                         </form>
                     </div>
-                    <div>
+                    <div className={`${styles.recipes} row mt-5 d-flex justify-content-around`}>
                         {recipes.map(recipe => <RecipeCard key={recipe._id} recipe={recipe} />)}
                     </div>
                 </div>
             </div>
-
         </>
     )
 }
 
 export default Home;
-                        // <RecipeCard>
-                        // </RecipeCard>
