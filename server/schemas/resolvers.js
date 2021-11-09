@@ -1,6 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Recipe } = require('../models');
 const { signToken } = require('../utils/auth');
+const mongoose = require('mongoose');
 //  const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');  add back if we want to use donations
 
 const resolvers = {
@@ -105,13 +106,14 @@ const resolvers = {
 
     removeRecipe: async (parent, temp, context) => {
       const { _id } = temp;
-      console.log(temp);
       if (context.user) {
         return User.findOneAndUpdate(
-          { _id: context.user._id },
+          {
+            _id : context.user._id
+          },
           {
             $pull: {
-              saved_recipes: { _id }
+              saved_recipes: { _id : mongoose.Types.ObjectId(_id) }
             }
           },
           { new: true }
