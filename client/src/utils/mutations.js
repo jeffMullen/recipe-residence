@@ -60,21 +60,20 @@ export const UPDATE_RECIPE = gql`
 `;
 
 export const SAVE_RECIPE = gql`
-mutation saveRecipe($_id: ID!, $title: String, $ingredients: [String], $description: String, $instructions: String, $total_time: String, $dietry_restrictions: [DietaryRestrictions]) {
-    saveRecipe(recipeId: $_id, title: $title, ingredients: $ingredients, description: $description, instructions: $instructions, total_time: $total_time, dietary_restrictions: $dietary_restrictions){
+mutation saveRecipe($_id: ID!, $title: String!, $ingredients: [String!], $description: String!, $instructions: [String!], $total_time: String!, $dietary_restrictions: [String], $author:String!) {
+  saveRecipe(_id: $_id, title: $title, ingredients: $ingredients, description: $description, instructions: $instructions, total_time: $total_time, dietary_restrictions: $dietary_restrictions, author:$author){
+      _id
+      username
+      saved_recipes {
         _id
-        username
-        saved_recipes {
-          _id
-          title
-          author
-          ingredients
-          description
-          instructions
-          total_time
-          dietary_restrictions
-        }
-    }
+        title
+        author
+        ingredients
+        description
+        instructions
+        total_time
+      }
+  }
 }
 `;
 

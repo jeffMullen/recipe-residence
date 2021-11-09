@@ -94,7 +94,8 @@ const resolvers = {
     saveRecipe: async (parent, { _id, title, author, description, ingredients, instructions, total_time, dietary_restrictions, link }, context) => {
       const recipe = { _id, title, author, description, ingredients, instructions, total_time, dietary_restrictions, link };
       if (context.user) {
-        return User.findOneAndUpdate(
+        console.log(recipe);
+        return await User.findOneAndUpdate(
           { _id: context.user._id },
           {
             $addToSet: { saved_recipes: recipe }
