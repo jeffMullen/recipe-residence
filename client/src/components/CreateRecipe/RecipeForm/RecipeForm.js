@@ -113,24 +113,34 @@ function RecipeForm({ formData, setFormData, refetch }) {
 
     return (
         <>
-            <div className="col-12 col-lg-6">
-                <form className={`${styles.createRecipe} createRecipe`}>
+            <div className="mt-5 col-12 col-lg-6">
+                <h2 className={`text-center`}>Create A Recipe</h2>
+                <form className={`${styles.createRecipe} p-4 p-md-5`}>
                     <div className={`${styles.inputDiv} d-flex flex-column col-12`}>
                         <label htmlFor="title" className={`${styles.inputLabel} form-label`}>Title</label>
                         <input
+                            className={`${styles.inputField}`}
                             onChange={(e) => handleInputChange(e)}
                             id="title" name="title" aria-describedby=""></input>
                     </div>
-                    <div className={`${styles.inputDiv} d-flex flex-column col-12`}>
+                    <div className={`${styles.inputDiv} my-4 my-md-5 d-flex flex-column col-12`}>
                         <label htmlFor="totalTime" className={`${styles.inputLabel} form-label`}>Total Time</label>
                         <input
+                            className={`${styles.inputField}`}
                             onChange={(e) => handleInputChange(e)}
                             id="totalTime" name="totalTime" aria-describedby=""></input>
                     </div>
+                    <div className={`${styles.inputDiv} my-4 my-md-5 d-flex flex-column col-12`}>
+                        <label htmlFor="description" className={`${styles.inputLabel} form-label`}>Description</label>
+                        <input
+                            className={`${styles.inputField}`}
+                            onChange={(e) => handleInputChange(e)}
+                            id="description" name="description" aria-describedby=""></input>
+                    </div>
                     {/* Dietary restrictions checkboxes */}
-                    <div className={`${styles.inputDiv} d-flex flex-column col-12`}>
+                    <div className={`${styles.inputDiv} my-4 my-md-5 d-flex flex-column col-12`}>
                         <label
-                            className={styles.inputLabel}
+                            className={`${styles.inputLabel} pb-4`}
                             htmlFor="dietaryRestrictions">Dietary Restrictions</label>
                         <div id="dietaryRestrictions"
                             className={`${styles.dietaryRestrictions} col-12 d-flex justify-content-around flex-wrap`}>
@@ -142,37 +152,47 @@ function RecipeForm({ formData, setFormData, refetch }) {
                                     restriction={restriction} />)}
                         </div>
                     </div>
-                    <div className={`${styles.inputDiv} d-flex flex-column col-12`}>
+                    <div className={`${styles.inputDiv} my-4 my-md-5 d-flex flex-column col-12`}>
                         <label htmlFor="ingredients" className={`${styles.inputLabel} form-label`}>Ingredients</label>
-                        <input id="ingredients" name="ingredients" aria-describedby=""></input>
-                        <button
-                            onClick={(e) => {
-                                addItem(e, e.target.previousSibling);
-                                e.target.previousSibling.value = '';
-                            }}
-                        >Add</button>
+                        <div>
+                            <input
+                                className={`${styles.inputField}`}
+                                id="ingredients"
+                                name="ingredients"
+                                aria-describedby=""></input>
+                            <button
+                                className={`${styles.button}`}
+                                onClick={(e) => {
+                                    addItem(e, e.target.previousSibling);
+                                    e.target.previousSibling.value = '';
+                                }}
+                            >Add Ingredient</button>
+                        </div>
                     </div>
-                    <div className={`${styles.inputDiv} d-flex flex-column col-12`}>
-                        <label htmlFor="description" className={`${styles.inputLabel} form-label`}>Description</label>
-                        <input
-                            onChange={(e) => handleInputChange(e)}
-                            id="description" name="description" aria-describedby=""></input>
-                    </div>
-                    <div className={`${styles.inputDiv} d-flex flex-column col-12`}>
+
+                    <div className={`${styles.inputDiv} my-4 my-md-5 d-flex flex-column col-12`}>
                         <label htmlFor="instructions" className={`${styles.inputLabel} form-label`}>Instructions</label>
-                        <input
-                            id="instructions" name="instructions" aria-describedby=""></input>
-                        <button
-                            onClick={(e) => {
-                                addItem(e, e.target.previousSibling);
-                                e.target.previousSibling.value = '';
-                            }}
-                        >Add</button>
+                        <div>
+                            <input
+                                className={`${styles.inputField}`}
+                                id="instructions"
+                                name="instructions"
+                                aria-describedby=""></input>
+                            <button
+                                className={`${styles.button}`}
+                                onClick={(e) => {
+                                    addItem(e, e.target.previousSibling);
+                                    e.target.previousSibling.value = '';
+                                }}
+                            >Add Instructions</button>
+                        </div>
                     </div>
-                    <button onClick={(e) => {
-                        e.preventDefault();
-                        createRecipe();
-                    }}
+                    <button
+                        className={`${styles.submit} mt-3`}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            createRecipe();
+                        }}
                         type="submit"
                     >Create</button>
                 </form>
