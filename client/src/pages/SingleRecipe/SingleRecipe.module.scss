@@ -78,6 +78,18 @@ $addButtonColor: #198754;
             height: fit-content;
             width: fit-content;
         }
+        // List styles
+        .listItem {
+            list-style-type: circle;
+        }
+        // Delete list item button
+        .deleteButton {
+            width: fit-content;
+            border: none;
+            background: $background;
+            color: red;
+            font-weight: 700;
+        }
     }
     .submit {
         font-weight: 500;
@@ -96,31 +108,5 @@ $addButtonColor: #198754;
     }
 }
 
-.listItem {
-    list-style-type: circle;
-}
 
-.deleteButton {
-    width: fit-content;
-    border: none;
-    background: $background;
-    color: red;
-    font-weight: 700;
-}
 
-.listItemContainer {
-    // display: flex;
-    // justify-content: space-between;
-    // align-items: center;
-    // .listItem {
-    //     display: inline;
-    //     list-style-type: circle;
-    //     margin-right: 15px;
-    // }
-    // .deleteButton {
-    //     font-size: .8rem;
-    //     display: inline;
-    //     padding: 5px 10px;
-    //     border-radius: 5px;
-    // }
-}
