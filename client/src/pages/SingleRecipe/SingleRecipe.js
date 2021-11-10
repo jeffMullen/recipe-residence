@@ -11,25 +11,18 @@ import { GET_SINGLE_RECIPE, GET_ME } from '../../utils/queries';
 import { UPDATE_RECIPE } from '../../utils/mutations';
 
 const SingleRecipe = () => {
-    const { recipeId } = useParams();
-    console.log("RECIPE ID", recipeId)
 
+    const { recipeId } = useParams();
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-    const { loading, data, refetch } = useQuery(GET_SINGLE_RECIPE, {
-        variables: { recipeId },
-    });
-
+    //QUERIES AND MUTATIONS
+    const { loading, data, refetch } = useQuery(GET_SINGLE_RECIPE, {variables: { recipeId },});
     const [updateRecipe, { error, data: updateData }] = useMutation(UPDATE_RECIPE, token);
 
     const recipe = data?.getSingleRecipe || {};
-    console.log('recipe', recipe);
-
     const { _id, author, description, dietary_restrictions, total_time, title, instructions, ingredients } = recipe;
 
-    console.log('TITLE', title)
-
-
+    //STATE VARIABLES
     const [recipeTitle, setRecipeTitle] = useState(title);
     const [totalTime, setTotalTime] = useState(total_time);
     const [recipeDescription, setRecipeDescription] = useState(description);
@@ -129,9 +122,8 @@ const SingleRecipe = () => {
         )
     }
 
-    // Create recipe mutation
+    // Update recipe mutation
     const handleUpdateRecipe = async () => {
-        console.log('IN UPDATE RECIPE')
         if (!token) {
             return false;
         }
@@ -176,7 +168,6 @@ const SingleRecipe = () => {
 
     Auth.loggedIn() && admin ? console.log('ADMIN') : console.log('NO ACCESS');
 
-    console.log('RECIPE TITLE TO RENDER', recipeTitle)
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -186,9 +177,9 @@ const SingleRecipe = () => {
                 // If logged in and recipe is authored by user, render a recipe that can be updated
                 <div className={`${styles.recipe} my-3 mx-3 p-5`}>
                     <div>
-                        {title &&
+                        {recipeTitle &&
                             <h2>
-                                {title}
+                                {recipeTitle}
                             </h2>}
                         <div>
                             <input id="title" name="title" aria-describedby=""></input>
@@ -333,6 +324,7 @@ const SingleRecipe = () => {
                     <button onClick={(e) => {
                         e.preventDefault();
                         handleUpdateRecipe();
+                        window.location.assign("/profile");
                     }}
                         type="submit"
                     >Submit Updated Recipe</button>

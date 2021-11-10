@@ -18,6 +18,8 @@ function Home() {
         variables: { search: searchState, page: pageState, limit: limitState }
     });
 
+    console.log(getMeData);
+
     const handleInputChange = (event) => {
         // let name = event.target.name;
         let value = event.target.value;
@@ -25,10 +27,10 @@ function Home() {
         setSearchState(value);
     }
 
-    const myRecipes = getMeData?.me.saved_recipes;
+    const myRecipes = getMeData?.me?.saved_recipes||[];
 
     function compareRecipeIds(currentId){
-        if (getMeData === undefined) return false;
+        if (getMeData?.me == null) return false;
         for(let i=0; i<myRecipes.length; i++){
             if(myRecipes[i]._id===currentId){
                 return false
