@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import RecipeCard from "../components/RecipeCard/RecipeCard";
 import CreateRecipe from '../components/CreateRecipe/CreateRecipe';
-import {gql, useMutation, useQuery} from '@apollo/client';
-import {GET_ME} from '../utils/queries.js';
+import { gql, useMutation, useQuery } from '@apollo/client';
+import { GET_ME } from '../utils/queries.js';
 
 function Profile() {
 
     let [recipes, setRecipes] = useState([]);
 
-    const { loading, error, data, refetch} = useQuery(GET_ME);
-    const userData = data?.me || [];  
-  
+    const { loading, error, data, refetch } = useQuery(GET_ME);
+    const userData = data?.me || [];
+
     console.log(userData.saved_recipes);
 
-    recipes = userData.saved_recipes||[];
+    recipes = userData.saved_recipes || [];
 
     return (
         <>
@@ -21,7 +21,9 @@ function Profile() {
                 <div className="row">
                     {recipes.map(recipe => <RecipeCard key={recipe._id} recipe={recipe} showDelete={true} />)}
                 </div>
-                <CreateRecipe refetch={refetch}/>
+                <div className="row">
+                    <CreateRecipe refetch={refetch} />
+                </div>
             </div>
         </>
     )

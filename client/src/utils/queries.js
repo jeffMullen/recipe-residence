@@ -29,14 +29,14 @@ export const GET_ME = gql`
       username
       email
       saved_recipes {
-      _id
-      title
-      author
-      ingredients
-      description
-      instructions
-      total_time
-      dietary_restrictions
+        _id
+        title
+        author
+        ingredients
+        description
+        instructions
+        total_time
+        dietary_restrictions
       }
     }
   }
@@ -75,16 +75,16 @@ export const SEARCH_RECIPES = gql`
     }
   }`;
 
-// export const GET_SINGLE_RECIPE = gql`
-//   query recipe($recipeId: ID!) {
-//     recipe(recipeId: $recipeId) {
-//     _id
-//     title
-//     author
-//     ingredients
-//     description
-//     instructions
-//     total_time
-//     dietary_restrictions
-//   }
-// `;
+export const GET_SINGLE_RECIPE = gql`
+  query getSingleRecipe($recipeId: ID!) {
+    getSingleRecipe(recipeId: $recipeId) {
+      _id
+      title
+      author
+      ingredients
+      description
+      instructions
+      total_time
+      dietary_restrictions
+  }
+}`;

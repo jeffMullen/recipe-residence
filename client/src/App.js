@@ -6,6 +6,7 @@ import './scss/index.scss';
 import Navbar from './components/Navbar/Navbar';
 import Home from './pages/Home/Home';
 import Profile from './pages/Profile';
+import SingleRecipe from './pages/SingleRecipe/SingleRecipe';
 
 const link = createHttpLink({
   uri: '/graphql',
@@ -41,6 +42,7 @@ function App() {
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/profile' component={Profile} />
+            <Route path='/recipes/:recipeId' component={SingleRecipe} />
           </Switch>
         </div>
       </Router>
