@@ -151,7 +151,8 @@ const resolvers = {
           { _id: context.user._id },
           {
             $addToSet: { saved_recipes: recipe }
-          }
+          },
+          {new: true}
         );
       }
       throw new AuthenticationError('Please log in to add a favorite recipe');
