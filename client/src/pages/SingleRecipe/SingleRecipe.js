@@ -176,159 +176,161 @@ const SingleRecipe = () => {
         <>
             {Auth.loggedIn() && admin ?
                 // If logged in and recipe is authored by user, render a recipe that can be updated
-                <div className={`${styles.recipe} my-3 mx-3 p-5`}>
-                    <div>
-                        {recipeTitle &&
-                            <h2>
-                                {recipeTitle}
-                            </h2>}
+                <div className={`${styles.recipe} my-3 mx-3 p-4 p-md-5`}>
+                    <form>
                         <div>
-                            <input id="title" name="title" aria-describedby=""></input>
-                            <button onClick={(e) => {
-                                handleInputChange(e, e.target.previousSibling)
-                                e.target.previousSibling.value = '';
-                            }}>
-                                Change
-                            </button>
-                        </div>
-                    </div>
-                    <div>
-                        <p>{totalTime}</p>
-                        <div>
-                            <input id="totalTime" name="totalTime" aria-describedby=""></input>
-                            <button onClick={(e) => {
-                                handleInputChange(e, e.target.previousSibling)
-                                e.target.previousSibling.value = '';
-                            }}>
-                                Change
-                            </button>
-                        </div>
-                    </div>
-                    <Link to={`/profiles/${author}`}>
-                        {author}
-                    </Link>
-                    <div>
-                        <p>{recipeDescription}</p>
-                        <div>
-                            <input id="description" name="description" aria-describedby=""></input>
-                            <button onClick={(e) => {
-                                handleInputChange(e, e.target.previousSibling)
-                                e.target.previousSibling.value = '';
-                            }}>
-                                Change
-                            </button>
-                        </div>
-                    </div>
-                    {restrictions ?
-                        <div>
-                            <h3>Dietary Restrictions</h3>
-                            <ul className={styles.dietaryRestrictions}>
-                                {restrictions.map((restriction, index) =>
-                                    <div key={index}
-                                        className={`${styles.listItemContainer}`}>
-                                        <li className={styles.listItem} name="dietaryRestrictions" value={restriction}>{restriction}</li>
-                                        <button
-                                            className={styles.deleteButton}
-                                            onClick={(e) => {
-
-                                                handleDelete(e, e.target.previousSibling)
-                                            }}>X</button>
-                                    </div>
-                                )}
-                            </ul>
-                            <div id="dietaryRestrictions">
-
-                                {dietaryRestrictions.map((restriction, index) =>
-                                    <Checkbox
-                                        addRestriction={addRestriction}
-                                        key={index}
-                                        restriction={restriction} />)}
-                            </div>
-                        </div>
-
-                        :
-
-                        <div></div>
-                    }
-                    {recipeIngredients ?
-                        <div>
-                            <h3>Ingredients</h3>
-                            <ul>
-                                {recipeIngredients.map((ingredient, index) =>
-                                    <div key={index}
-                                        className={styles.listItemContainer}>
-                                        <li className={styles.listItem} name="ingredients" value={ingredient}>{ingredient}</li>
-                                        <button
-                                            className={styles.deleteButton}
-                                            onClick={(e) => {
-
-                                                handleDelete(e, e.target.previousSibling)
-                                            }}>X</button>
-                                    </div>
-                                )}
-                            </ul>
+                            {recipeTitle &&
+                                <h2>
+                                    {recipeTitle}
+                                </h2>}
                             <div>
-                                <label htmlFor="ingredients" className="form-label">Ingredients</label>
-                                <input
-                                    id="ingredients" name="ingredients" aria-describedby=""></input>
-                                <button
-                                    onClick={(e) => {
-                                        addItem(e, e.target.previousSibling);
-                                        e.target.previousSibling.value = '';
-                                    }}
-                                >Add</button>
+                                <input id="title" name="title" aria-describedby=""></input>
+                                <button onClick={(e) => {
+                                    handleInputChange(e, e.target.previousSibling)
+                                    e.target.previousSibling.value = '';
+                                }}>
+                                    Change
+                                </button>
                             </div>
                         </div>
-
-
-                        :
-
-                        <div></div>
-
-                    }
-                    {recipeInstructions ?
                         <div>
-                            <h3>Instructions</h3>
-                            <ol>
-                                {recipeInstructions.map((instruction, index) =>
-                                    <div key={index}
-                                        className={styles.listItemContainer}>
-                                        <li className={styles.listItem} name="instructions" value={instruction}>{instruction}</li>
-                                        <button
-                                            className={styles.deleteButton}
-                                            onClick={(e) => {
-
-                                                handleDelete(e, e.target.previousSibling)
-                                            }}>
-                                            X
-                                        </button>
-                                    </div>
-                                )}
-                            </ol>
+                            <p>{totalTime}</p>
                             <div>
-                                <label htmlFor="instructions" className="form-label">Instructions</label>
-                                <input
-                                    id="instructions" name="instructions" aria-describedby=""></input>
-                                <button
-                                    onClick={(e) => {
-                                        addItem(e, e.target.previousSibling);
-                                        e.target.previousSibling.value = '';
-                                    }}>Add</button>
+                                <input id="totalTime" name="totalTime" aria-describedby=""></input>
+                                <button onClick={(e) => {
+                                    handleInputChange(e, e.target.previousSibling)
+                                    e.target.previousSibling.value = '';
+                                }}>
+                                    Change
+                                </button>
                             </div>
                         </div>
+                        <Link to={`/profiles/${author}`}>
+                            {author}
+                        </Link>
+                        <div>
+                            <p>{recipeDescription}</p>
+                            <div>
+                                <input id="description" name="description" aria-describedby=""></input>
+                                <button onClick={(e) => {
+                                    handleInputChange(e, e.target.previousSibling)
+                                    e.target.previousSibling.value = '';
+                                }}>
+                                    Change
+                                </button>
+                            </div>
+                        </div>
+                        {restrictions ?
+                            <div>
+                                <h3>Dietary Restrictions</h3>
+                                <ul className={styles.dietaryRestrictions}>
+                                    {restrictions.map((restriction, index) =>
+                                        <div key={index}
+                                            className={`${styles.listItemContainer}`}>
+                                            <li className={styles.listItem} name="dietaryRestrictions" value={restriction}>{restriction}</li>
+                                            <button
+                                                className={styles.deleteButton}
+                                                onClick={(e) => {
 
-                        :
+                                                    handleDelete(e, e.target.previousSibling)
+                                                }}>X</button>
+                                        </div>
+                                    )}
+                                </ul>
+                                <div id="dietaryRestrictions">
 
-                        <div></div>
+                                    {dietaryRestrictions.map((restriction, index) =>
+                                        <Checkbox
+                                            addRestriction={addRestriction}
+                                            key={index}
+                                            restriction={restriction} />)}
+                                </div>
+                            </div>
 
-                    }
-                    <button onClick={(e) => {
-                        e.preventDefault();
-                        handleUpdateRecipe();
-                        window.location.assign("/profile");
-                    }}
-                        type="submit"
-                    >Submit Updated Recipe</button>
+                            :
+
+                            <div></div>
+                        }
+                        {recipeIngredients ?
+                            <div>
+                                <h3>Ingredients</h3>
+                                <ul>
+                                    {recipeIngredients.map((ingredient, index) =>
+                                        <div key={index}
+                                            className={styles.listItemContainer}>
+                                            <li className={styles.listItem} name="ingredients" value={ingredient}>{ingredient}</li>
+                                            <button
+                                                className={styles.deleteButton}
+                                                onClick={(e) => {
+
+                                                    handleDelete(e, e.target.previousSibling)
+                                                }}>X</button>
+                                        </div>
+                                    )}
+                                </ul>
+                                <div>
+                                    <label htmlFor="ingredients" className="form-label">Ingredients</label>
+                                    <input
+                                        id="ingredients" name="ingredients" aria-describedby=""></input>
+                                    <button
+                                        onClick={(e) => {
+                                            addItem(e, e.target.previousSibling);
+                                            e.target.previousSibling.value = '';
+                                        }}
+                                    >Add</button>
+                                </div>
+                            </div>
+
+
+                            :
+
+                            <div></div>
+
+                        }
+                        {recipeInstructions ?
+                            <div>
+                                <h3>Instructions</h3>
+                                <ol>
+                                    {recipeInstructions.map((instruction, index) =>
+                                        <div key={index}
+                                            className={styles.listItemContainer}>
+                                            <li className={styles.listItem} name="instructions" value={instruction}>{instruction}</li>
+                                            <button
+                                                className={styles.deleteButton}
+                                                onClick={(e) => {
+
+                                                    handleDelete(e, e.target.previousSibling)
+                                                }}>
+                                                X
+                                            </button>
+                                        </div>
+                                    )}
+                                </ol>
+                                <div>
+                                    <label htmlFor="instructions" className="form-label">Instructions</label>
+                                    <input
+                                        id="instructions" name="instructions" aria-describedby=""></input>
+                                    <button
+                                        onClick={(e) => {
+                                            addItem(e, e.target.previousSibling);
+                                            e.target.previousSibling.value = '';
+                                        }}>Add</button>
+                                </div>
+                            </div>
+
+                            :
+
+                            <div></div>
+
+                        }
+                        <button onClick={(e) => {
+                            e.preventDefault();
+                            handleUpdateRecipe();
+                            window.location.assign("/profile");
+                        }}
+                            type="submit"
+                        >Submit Updated Recipe</button>
+                    </form>
                 </div>
 
                 :
