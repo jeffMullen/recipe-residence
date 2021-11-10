@@ -4,7 +4,7 @@ import Auth from '../../../utils/auth';
 import Checkbox from './Checkbox';
 import { ADD_RECIPE } from '../../../utils/mutations';
 import styles from './RecipeForm.module.scss';
-import RenderedRecipe from '../RenderedRecipe/RenderedRecipe';
+// import RenderedRecipe from '../RenderedRecipe/RenderedRecipe';
 
 
 function RecipeForm({ formData, setFormData, refetch }) {
@@ -113,7 +113,7 @@ function RecipeForm({ formData, setFormData, refetch }) {
 
     return (
         <>
-            <div className="mt-5 col-12 col-lg-6">
+            <div className={`${styles.createRecipeContainer} mt-5 col-12`}>
                 <h2 className={`text-center`}>Create A Recipe</h2>
                 <form className={`${styles.createRecipe} p-4 p-md-5`}>
                     <div className={`${styles.inputDiv} d-flex flex-column col-12`}>
@@ -167,24 +167,41 @@ function RecipeForm({ formData, setFormData, refetch }) {
                                     e.target.previousSibling.value = '';
                                 }}
                             >Add Ingredient</button>
+                            {ingredients &&
+                                <ul className={`mt-4 d-flex flex-wrap justify-content around`}>
+                                    {ingredients.map((ingredient, index) =>
+                                        <li
+                                            className={`${styles.ingredientItem} col-12 col-sm-6`}
+                                            key={index}
+                                        >{ingredient}</li>)}
+                                </ul>
+                            }
                         </div>
                     </div>
-
                     <div className={`${styles.inputDiv} my-4 my-md-5 d-flex flex-column col-12`}>
-                        <label htmlFor="instructions" className={`${styles.inputLabel} form-label`}>Instructions</label>
-                        <div>
-                            <input
-                                className={`${styles.inputField}`}
+                        <label htmlFor="instructions" className={`${styles.inputLabel} form-label mb-3`}>Instructions</label>
+                        <div className={`d-flex flex-column flex-md-row align-items-md-center`}>
+                            <textarea
+                                className={`${styles.instructionsField}`}
                                 id="instructions"
                                 name="instructions"
-                                aria-describedby=""></input>
+                                aria-describedby=""></textarea>
                             <button
-                                className={`${styles.button}`}
+                                className={`${styles.button} ${styles.instructionsButton}`}
                                 onClick={(e) => {
                                     addItem(e, e.target.previousSibling);
                                     e.target.previousSibling.value = '';
                                 }}
-                            >Add Instructions</button>
+                            >Add Instruction</button>
+                            {instructions &&
+                                <ol className={`mt-4`}>
+                                    {instructions.map((instruction, index) =>
+                                        <li
+                                            className={`${styles.instructionItem} mb-1`}
+                                            key={index}
+                                        >{instruction}</li>)}
+                                </ol>
+                            }
                         </div>
                     </div>
                     <button
@@ -197,11 +214,11 @@ function RecipeForm({ formData, setFormData, refetch }) {
                     >Create</button>
                 </form>
             </div>
-            <div className="col-12 col-md-6">
+            {/* <div className="col-12 col-md-6">
                 <RenderedRecipe
                     ingredients={ingredients}
                     instructions={instructions} />
-            </div>
+            </div> */}
         </>
     )
 }

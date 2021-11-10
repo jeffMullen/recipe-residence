@@ -3,6 +3,7 @@ import RecipeCard from "../components/RecipeCard/RecipeCard";
 import CreateRecipe from '../components/CreateRecipe/CreateRecipe';
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { GET_ME } from '../utils/queries.js';
+import styles from './Profile.module.scss';
 
 function Profile() {
 
@@ -17,11 +18,11 @@ function Profile() {
 
     return (
         <>
-            <div className="profile-page container mt-5">
-                <div className="row">
+            <div className="profile-page container mt-5 d-flex flex-column align-items-center">
+                <div className={`${styles.row} row d-flex justify-content-center`}>
                     {recipes.map(recipe => <RecipeCard key={recipe._id} recipe={recipe} showDelete={true} />)}
                 </div>
-                <div className="row">
+                <div className={`${styles.row} row d-flex justify-content-center`}>
                     <CreateRecipe refetch={refetch} />
                 </div>
             </div>
