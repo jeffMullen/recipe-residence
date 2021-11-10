@@ -1,7 +1,7 @@
 # recipe-residence
 
-Deployment: PLACEHOLDER
-Demo Video: PLACEHOLDER
+* Deployment: [Recipe-Residence](https://desolate-atoll-16678.herokuapp.com/)
+* Demo Video: PLACEHOLDER
 
 # Description
 A site where users can post and view recipes that have been shared by other users or yourself.  There have been too many times where you made a meal months back and cant remember what you need or how much of it?  Well, look no further, your favorite recipes can now live on for future generations to enjoy!  Help put a stop to the unneccesarily bland food by adding and using amazing recipes in one convenient spot
@@ -38,7 +38,7 @@ npm i
 
 # Email
 Any questions? Please email us at:
-* [kingcrowz@comcast.net](mailto:kingcrowz@comcast.net)
+* [kingcrowz](mailto:kingcrowz@comcast.net)
 * [lapshaffer](mailto:lapshaffer@gmail.com)
 * [chillaroo](mailto:rtc145@gmail.com)
 * [jeffMullen](mailto:jeffmullendev@gmail.com)
