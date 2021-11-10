@@ -25,7 +25,7 @@ function RecipeCard({ recipe, showDelete, showSave }) {
 
     return (
         <>
-            <div className={`col-12 col-sm-6 col-md-4 col-lg-3`}>
+            <div className={`${styles.cardContainer} col-12 col-sm-6 col-md-4 col-lg-3 pb-5`}>
                 {showDelete ? <button onClick={() => deleteRecipe(recipe._id)}>Remove From Collection</button> : ""}
                 {viewSave ? <button
                     onClick={() => {

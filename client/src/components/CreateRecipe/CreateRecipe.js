@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 // import RenderedRecipe from './RenderedRecipe/RenderedRecipe';
 import RecipeForm from './RecipeForm/RecipeForm';
@@ -7,8 +7,6 @@ function CreateRecipe({ refetch }) {
 
     const [formData, setFormData] = useState({});
 
-    // console.log(formData);
-
     return (
         <>
             <RecipeForm
@@ -16,7 +14,6 @@ function CreateRecipe({ refetch }) {
                 setFormData={setFormData}
                 refetch={refetch}
             />
-            {/* <RenderedRecipe formData={formData} /> */}
         </>
     )
 }

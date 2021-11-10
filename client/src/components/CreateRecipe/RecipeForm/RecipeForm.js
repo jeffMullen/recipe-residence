@@ -4,7 +4,7 @@ import Auth from '../../../utils/auth';
 import Checkbox from './Checkbox';
 import { ADD_RECIPE } from '../../../utils/mutations';
 import styles from './RecipeForm.module.scss';
-import RenderedRecipe from '../RenderedRecipe/RenderedRecipe';
+// import RenderedRecipe from '../RenderedRecipe/RenderedRecipe';
 
 
 function RecipeForm({ formData, setFormData, refetch }) {
@@ -97,7 +97,14 @@ function RecipeForm({ formData, setFormData, refetch }) {
         try {
             await addRecipe({
                 variables: { title, total_time: totalTime, description, ingredients, instructions, dietary_restrictions: restriction, author }
-            })
+            });
+            setTitle('');
+            setTotalTime('');
+            setDescription('');
+            setRestriction([]);
+            setIngredients([]);
+            setInstructions([]);
+
             await refetch();
         } catch (err) {
             console.error(err);
@@ -106,24 +113,37 @@ function RecipeForm({ formData, setFormData, refetch }) {
 
     return (
         <>
-            <div className="col-12 col-md-6">
-                <form className={`${styles.createRecipe} createRecipe`}>
-                    <div>
-                        <label htmlFor="title" className="form-label">Title</label>
+            <div className={`${styles.createRecipeContainer} mt-5 col-12`}>
+                <h2 className={`text-center`}>Create A Recipe</h2>
+                <form className={`${styles.createRecipe} p-4 p-md-5`}>
+                    <div className={`${styles.inputDiv} d-flex flex-column col-12`}>
+                        <label htmlFor="title" className={`${styles.inputLabel} form-label`}>Title</label>
                         <input
+                            className={`${styles.inputField}`}
                             onChange={(e) => handleInputChange(e)}
                             id="title" name="title" aria-describedby=""></input>
                     </div>
-                    <div>
-                        <label htmlFor="totalTime" className="form-label">Total Time</label>
+                    <div className={`${styles.inputDiv} my-4 my-md-5 d-flex flex-column col-12`}>
+                        <label htmlFor="totalTime" className={`${styles.inputLabel} form-label`}>Total Time</label>
                         <input
+                            className={`${styles.inputField}`}
                             onChange={(e) => handleInputChange(e)}
                             id="totalTime" name="totalTime" aria-describedby=""></input>
                     </div>
+                    <div className={`${styles.inputDiv} my-4 my-md-5 d-flex flex-column col-12`}>
+                        <label htmlFor="description" className={`${styles.inputLabel} form-label`}>Description</label>
+                        <input
+                            className={`${styles.inputField}`}
+                            onChange={(e) => handleInputChange(e)}
+                            id="description" name="description" aria-describedby=""></input>
+                    </div>
                     {/* Dietary restrictions checkboxes */}
-                    <div>
-                        <label htmlFor="dietaryRestrictions">Dietary Restrictions</label>
-                        <div id="dietaryRestrictions">
+                    <div className={`${styles.inputDiv} my-4 my-md-5 d-flex flex-column col-12`}>
+                        <label
+                            className={`${styles.inputLabel} pb-4`}
+                            htmlFor="dietaryRestrictions">Dietary Restrictions</label>
+                        <div id="dietaryRestrictions"
+                            className={`${styles.dietaryRestrictions} col-12 d-flex justify-content-around flex-wrap`}>
 
                             {dietaryRestrictions.map((restriction, index) =>
                                 <Checkbox
@@ -132,46 +152,73 @@ function RecipeForm({ formData, setFormData, refetch }) {
                                     restriction={restriction} />)}
                         </div>
                     </div>
-                    <div>
-                        <label htmlFor="ingredients" className="form-label">Ingredients</label>
-                        <input id="ingredients" name="ingredients" aria-describedby=""></input>
-                        <button
-                            onClick={(e) => {
-                                addItem(e, e.target.previousSibling);
-                                e.target.previousSibling.value = '';
-                            }}
-                        >Add</button>
+                    <div className={`${styles.inputDiv} my-4 my-md-5 d-flex flex-column col-12`}>
+                        <label htmlFor="ingredients" className={`${styles.inputLabel} form-label`}>Ingredients</label>
+                        <div>
+                            <input
+                                className={`${styles.inputField}`}
+                                id="ingredients"
+                                name="ingredients"
+                                aria-describedby=""></input>
+                            <button
+                                className={`${styles.button}`}
+                                onClick={(e) => {
+                                    addItem(e, e.target.previousSibling);
+                                    e.target.previousSibling.value = '';
+                                }}
+                            >Add Ingredient</button>
+                            {ingredients &&
+                                <ul className={`mt-4 d-flex flex-wrap justify-content around`}>
+                                    {ingredients.map((ingredient, index) =>
+                                        <li
+                                            className={`${styles.ingredientItem} col-12 col-sm-6`}
+                                            key={index}
+                                        >{ingredient}</li>)}
+                                </ul>
+                            }
+                        </div>
                     </div>
-                    <div>
-                        <label htmlFor="description" className="form-label">Description</label>
-                        <input
-                            onChange={(e) => handleInputChange(e)}
-                            id="description" name="description" aria-describedby=""></input>
+                    <div className={`${styles.inputDiv} my-4 my-md-5 d-flex flex-column col-12`}>
+                        <label htmlFor="instructions" className={`${styles.inputLabel} form-label mb-3`}>Instructions</label>
+                        <div className={`d-flex flex-column flex-md-row align-items-md-center`}>
+                            <textarea
+                                className={`${styles.instructionsField}`}
+                                id="instructions"
+                                name="instructions"
+                                aria-describedby=""></textarea>
+                            <button
+                                className={`${styles.button} ${styles.instructionsButton}`}
+                                onClick={(e) => {
+                                    addItem(e, e.target.previousSibling);
+                                    e.target.previousSibling.value = '';
+                                }}
+                            >Add Instruction</button>
+                            {instructions &&
+                                <ol className={`mt-4`}>
+                                    {instructions.map((instruction, index) =>
+                                        <li
+                                            className={`${styles.instructionItem} mb-1`}
+                                            key={index}
+                                        >{instruction}</li>)}
+                                </ol>
+                            }
+                        </div>
                     </div>
-                    <div>
-                        <label htmlFor="instructions" className="form-label">Instructions</label>
-                        <input
-                            id="instructions" name="instructions" aria-describedby=""></input>
-                        <button
-                            onClick={(e) => {
-                                addItem(e, e.target.previousSibling);
-                                e.target.previousSibling.value = '';
-                            }}
-                        >Add</button>
-                    </div>
-                    <button onClick={(e) => {
-                        e.preventDefault();
-                        createRecipe();
-                    }}
+                    <button
+                        className={`${styles.submit} mt-3`}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            createRecipe();
+                        }}
                         type="submit"
                     >Create</button>
                 </form>
             </div>
-            <div className="col-12 col-md-6">
+            {/* <div className="col-12 col-md-6">
                 <RenderedRecipe
                     ingredients={ingredients}
                     instructions={instructions} />
-            </div>
+            </div> */}
         </>
     )
 }

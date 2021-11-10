@@ -27,12 +27,12 @@ function Home() {
         setSearchState(value);
     }
 
-    const myRecipes = getMeData?.me?.saved_recipes||[];
+    const myRecipes = getMeData?.me?.saved_recipes || [];
 
-    function compareRecipeIds(currentId){
+    function compareRecipeIds(currentId) {
         if (getMeData?.me == null) return false;
-        for(let i=0; i<myRecipes.length; i++){
-            if(myRecipes[i]._id===currentId){
+        for (let i = 0; i < myRecipes.length; i++) {
+            if (myRecipes[i]._id === currentId) {
                 return false
             }
         }
@@ -71,7 +71,7 @@ function Home() {
                             key={recipe._id}
                             recipe={recipe}
                             showDelete={false}
-                            showSave={()=>compareRecipeIds(recipe._id)}
+                            showSave={() => compareRecipeIds(recipe._id)}
                         />)}
                     </div>
                 </div>

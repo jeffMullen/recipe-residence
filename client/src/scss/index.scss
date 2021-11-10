@@ -18,19 +18,32 @@ html {
     font-size: 1rem;
 }
 
-// body {
-//     overflow: overlay;
-// }
+body {
+    scrollbar-width: thin;
+    -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
 
 .App {
-    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
 }
 
 .App-header {
-    width: inherit;
     height: $nav-height;
     position: relative;
     z-index: 1;
     font-weight: 500;
 
+}
+
+main {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
