@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
@@ -12,6 +12,7 @@ import { UPDATE_RECIPE } from '../../utils/mutations';
 
 const SingleRecipe = () => {
     const { recipeId } = useParams();
+    console.log("RECIPE ID", recipeId)
 
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -25,7 +26,9 @@ const SingleRecipe = () => {
     console.log('recipe', recipe);
 
     const { _id, author, description, dietary_restrictions, total_time, title, instructions, ingredients } = recipe;
-    
+
+    console.log('TITLE', title)
+
 
     const [recipeTitle, setRecipeTitle] = useState(title);
     const [totalTime, setTotalTime] = useState(total_time);
@@ -33,6 +36,16 @@ const SingleRecipe = () => {
     const [recipeInstructions, setRecipeInstructions] = useState(instructions);
     const [recipeIngredients, setRecipeIngredients] = useState(ingredients);
     const [restrictions, setRestrictions] = useState(dietary_restrictions);
+
+    useEffect(() => {
+        setRecipeTitle(title);
+        setTotalTime(total_time);
+        setRecipeDescription(description);
+        setRecipeInstructions(instructions);
+        setRecipeIngredients(ingredients);
+        setRestrictions(dietary_restrictions);
+
+    }, [title, total_time, description, instructions, ingredients, dietary_restrictions]);
 
     // Delete items from arrays in state
     const handleDelete = (e, item) => {
@@ -163,7 +176,7 @@ const SingleRecipe = () => {
 
     Auth.loggedIn() && admin ? console.log('ADMIN') : console.log('NO ACCESS');
 
-    
+    console.log('RECIPE TITLE TO RENDER', recipeTitle)
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -173,9 +186,10 @@ const SingleRecipe = () => {
                 // If logged in and recipe is authored by user, render a recipe that can be updated
                 <div className={`${styles.recipe} my-3 mx-3 p-5`}>
                     <div>
-                        <h2>
-                            {recipeTitle}
-                        </h2>
+                        {title &&
+                            <h2>
+                                {title}
+                            </h2>}
                         <div>
                             <input id="title" name="title" aria-describedby=""></input>
                             <button onClick={(e) => {

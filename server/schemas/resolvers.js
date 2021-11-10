@@ -62,7 +62,7 @@ const resolvers = {
     getSingleRecipe: async (_, args) => {
       const { recipeId } = args;
 
-      return Recipe.findById(recipeId);
+      return await Recipe.findById(recipeId);
 
     },
 
@@ -109,83 +109,34 @@ const resolvers = {
           { new: true }
         );
 
-        console.log("RECIPE UPDATED -- BEFORE USER UPDATE")
 
-        // await User.findOneAndUpdate(
-        //   {
-        //     _id: context.user._id,
-        //     'saved_recipes._id': _id
-        //   },
-        //   {
-        //     $set: {
-        //       'saved_recipes.$.title': title,
-        //       'saved_recipes.$.total_time': total_time,
-        //       'saved_recipes.$.description': description,
-        //       'saved_recipes.$.ingredients': ingredients,
-        //       'saved_recipes.$.instructions': instructions,
-        //       'saved_recipes.$.dietary_restrictions': dietary_restrictions,
-        //       'saved_recipes.$.author': author
+        console.log("RECIPE UPDATED -- BEFORE USER UPDATE", updatedRecipe)
 
-        //     }
-        //   },
-        //   { new: true }
-        // )
+        const newUser = await User.updateOne(
+          {
+            _id: context.user._id,
+            "saved_recipes._id": mongoose.Types.ObjectId(_id)
+          },
+          {
+            $set: {
 
-        // await User.findOneAndUpdate(
-        //   {
-        //     _id: context.user._id,
-        //     'saved_recipes._id': _id
-        //   },
-        //   {
-        //     title: {
-        //       title
-        //     }
-        //   }
-        // );
+              "saved_recipes.$.title": title,
+              "saved_recipes.$.total_time": total_time,
+              "saved_recipes.$.description": description,
+              "saved_recipes.$.ingredients": ingredients,
+              "saved_recipes.$.instructions": instructions,
+              "saved_recipes.$.dietary_restrictions": dietary_restrictions,
+              "saved_recipes.$.author": author
+            }
+          },
+          { new: true },
+          (error) => console.log('error', error)
+        )
 
-        // return await User.findByIdAndUpdate(
-        //   {
-        //     _id: context.user._id,
-        //     saved_recipes:
-        //     {
-        //       $elemMatch: { _id: _id }
-        //     }
-        //   },
-        //   {
-        //     $set: {
-        //       saved_recipes: {
-        //         ...recipe, _id
-        //       }
-        //     }
-        //   },
-        //   {
-        //     new: true,
-        //     safe: true,
-        //     upsert: true
-        //   }
-        // )
+        console.log('new user', newUser, context.user)
 
-        // await User.updateOne(
-        //   {
-        //     _id: context.user._id,
-        //     "save_recipes._id": _id
-        //   },
-        //   {
-        //     $set: {
 
-        //       "saved_recipes.$.title": title,
-        //       "saved_recipes.$.total_time": total_time,
-        //       "saved_recipes.$.description": description,
-        //       "saved_recipes.$.ingredients": ingredients,
-        //       "saved_recipes.$.instructions": instructions,
-        //       "saved_recipes.$.dietary_restrictions": dietary_restrictions,
-        //       "saved_recipes.$.author": author
-        //     }
-        //   },
-        //   { new: true }
-        // )
-
-        console.log(context.user)
+        return updatedRecipe;
 
 
       }
