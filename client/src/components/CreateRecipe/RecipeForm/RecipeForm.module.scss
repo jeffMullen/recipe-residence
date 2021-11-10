@@ -1,13 +1,30 @@
 .createRecipe {
     padding: 20px;
-    background: #e8d9a4;
     margin-top: 75px;
+    border-radius: 10px;
+    background: linear-gradient(#F7F1DE, #F7F1DE) padding-box,
+    linear-gradient(#FFE2AD, orange, rgb(255, 89, 0)) border-box;
+    border: 2px solid transparent;
+    margin-bottom: 75px;
 }
 
-.inputLabel {
-    margin-right: 15px;
-    width: 100px;
+.inputDiv {
+    display: flex;
+    justify-content: space-between;
+    .inputLabel {
+        font-size: 1.2rem;
+        font-weight: 500;
+        // &::after {
+        //     content: ' ~ ';
+        // }
+    }
 }
+
+.dietaryRestrictions {
+    width: inherit;
+    // display: flex;
+}
+
 
 .dropdown {
     width: 500px;

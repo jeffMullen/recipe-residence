@@ -97,7 +97,14 @@ function RecipeForm({ formData, setFormData, refetch }) {
         try {
             await addRecipe({
                 variables: { title, total_time: totalTime, description, ingredients, instructions, dietary_restrictions: restriction, author }
-            })
+            });
+            setTitle('');
+            setTotalTime('');
+            setDescription('');
+            setRestriction([]);
+            setIngredients([]);
+            setInstructions([]);
+
             await refetch();
         } catch (err) {
             console.error(err);
@@ -106,24 +113,27 @@ function RecipeForm({ formData, setFormData, refetch }) {
 
     return (
         <>
-            <div className="col-12 col-md-6">
+            <div className="col-12 col-lg-6">
                 <form className={`${styles.createRecipe} createRecipe`}>
-                    <div>
-                        <label htmlFor="title" className="form-label">Title</label>
+                    <div className={`${styles.inputDiv} d-flex flex-column col-12`}>
+                        <label htmlFor="title" className={`${styles.inputLabel} form-label`}>Title</label>
                         <input
                             onChange={(e) => handleInputChange(e)}
                             id="title" name="title" aria-describedby=""></input>
                     </div>
-                    <div>
-                        <label htmlFor="totalTime" className="form-label">Total Time</label>
+                    <div className={`${styles.inputDiv} d-flex flex-column col-12`}>
+                        <label htmlFor="totalTime" className={`${styles.inputLabel} form-label`}>Total Time</label>
                         <input
                             onChange={(e) => handleInputChange(e)}
                             id="totalTime" name="totalTime" aria-describedby=""></input>
                     </div>
                     {/* Dietary restrictions checkboxes */}
-                    <div>
-                        <label htmlFor="dietaryRestrictions">Dietary Restrictions</label>
-                        <div id="dietaryRestrictions">
+                    <div className={`${styles.inputDiv} d-flex flex-column col-12`}>
+                        <label
+                            className={styles.inputLabel}
+                            htmlFor="dietaryRestrictions">Dietary Restrictions</label>
+                        <div id="dietaryRestrictions"
+                            className={`${styles.dietaryRestrictions} col-12 d-flex justify-content-around flex-wrap`}>
 
                             {dietaryRestrictions.map((restriction, index) =>
                                 <Checkbox
@@ -132,8 +142,8 @@ function RecipeForm({ formData, setFormData, refetch }) {
                                     restriction={restriction} />)}
                         </div>
                     </div>
-                    <div>
-                        <label htmlFor="ingredients" className="form-label">Ingredients</label>
+                    <div className={`${styles.inputDiv} d-flex flex-column col-12`}>
+                        <label htmlFor="ingredients" className={`${styles.inputLabel} form-label`}>Ingredients</label>
                         <input id="ingredients" name="ingredients" aria-describedby=""></input>
                         <button
                             onClick={(e) => {
@@ -142,14 +152,14 @@ function RecipeForm({ formData, setFormData, refetch }) {
                             }}
                         >Add</button>
                     </div>
-                    <div>
-                        <label htmlFor="description" className="form-label">Description</label>
+                    <div className={`${styles.inputDiv} d-flex flex-column col-12`}>
+                        <label htmlFor="description" className={`${styles.inputLabel} form-label`}>Description</label>
                         <input
                             onChange={(e) => handleInputChange(e)}
                             id="description" name="description" aria-describedby=""></input>
                     </div>
-                    <div>
-                        <label htmlFor="instructions" className="form-label">Instructions</label>
+                    <div className={`${styles.inputDiv} d-flex flex-column col-12`}>
+                        <label htmlFor="instructions" className={`${styles.inputLabel} form-label`}>Instructions</label>
                         <input
                             id="instructions" name="instructions" aria-describedby=""></input>
                         <button

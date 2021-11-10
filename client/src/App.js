@@ -39,11 +39,13 @@ function App() {
           <header className="App-header">
             <Navbar />
           </header>
-          <Switch>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/profile' component={Profile} />
-            <Route path='/recipes/:recipeId' component={SingleRecipe} />
-          </Switch>
+          <main>
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route exact path='/profile' component={Profile} />
+              <Route path='/recipes/:recipeId' component={SingleRecipe} />
+            </Switch>
+          </main>
         </div>
       </Router>
     </ApolloProvider>

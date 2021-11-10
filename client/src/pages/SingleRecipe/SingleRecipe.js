@@ -6,6 +6,7 @@ import Auth from '../../utils/auth';
 import dietaryRestrictions from '../../utils/dietaryRestrictions';
 import Checkbox from '../../components/CreateRecipe/RecipeForm/Checkbox';
 import styles from './SingleRecipe.module.scss';
+import viewStyles from './ViewOnlyRecipe.module.scss';
 
 import { GET_SINGLE_RECIPE, GET_ME } from '../../utils/queries';
 import { UPDATE_RECIPE } from '../../utils/mutations';
@@ -16,7 +17,7 @@ const SingleRecipe = () => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     //QUERIES AND MUTATIONS
-    const { loading, data, refetch } = useQuery(GET_SINGLE_RECIPE, {variables: { recipeId },});
+    const { loading, data, refetch } = useQuery(GET_SINGLE_RECIPE, { variables: { recipeId }, });
     const [updateRecipe, { error, data: updateData }] = useMutation(UPDATE_RECIPE, token);
 
     const recipe = data?.getSingleRecipe || {};
@@ -332,38 +333,47 @@ const SingleRecipe = () => {
 
                 :
 
-                null
-
-                // If recipe is not authored by user, show standard recipe
-                // <div className={`${styles.recipe} my-3 mx-3`}>
-                //     <h3>
-                //         {title}
-                //     </h3>
-                //     <div>
-                //         <p>{total_time}</p>
-                //     </div>
-                //     <Link to={`/profiles/${author}`}>
-                //         {author}
-                //     </Link>
-                //     <div>
-                //         <p>{description}</p>
-                //     </div>
-                //     <div>
-                //         <ul>
-                //             {dietary_restrictions.map((restriction, index) => <li key={index}>{restriction}</li>)}
-                //         </ul>
-                //     </div>
-                //     <div>
-                //         <ul>
-                //             {ingredients.map((ingredient, index) => <li key={index}>{ingredient}</li>)}
-                //         </ul>
-                //     </div>
-                //     <div>
-                //         <ol>
-                //             {instructions.map((instruction, index) => <li key={index}>{instruction}</li>)}
-                //         </ol>
-                //     </div>
-                // </div>
+                // If not the author, render un-editable recipe
+                <div className={`${viewStyles.recipe} p-3 p-md-5 my-3 mx-3`}>
+                    <h3 className={`${viewStyles.title}`}>
+                        {title}
+                    </h3>
+                    <div className={`${viewStyles.totalTime}`}>
+                        <p>{total_time}</p>
+                    </div>
+                    <div>
+                        <p>
+                            <span className={`${viewStyles.authorTag}`}>Author</span> - {author}
+                        </p>
+                    </div>
+                    <div>
+                        <p>{description}</p>
+                    </div>
+                    {dietary_restrictions &&
+                        <div className={`${viewStyles.listDivs}`}>
+                            <h4 className={`${viewStyles.sectionHeadings}`}>Dietary Restrictions</h4>
+                            <ul className={`${viewStyles.restrictions} d-flex justify-content-around`}>
+                                {dietary_restrictions.map((restriction, index) => <li className={`${viewStyles.listItems}`} key={index}>- {restriction}</li>)}
+                            </ul>
+                        </div>
+                    }
+                    {ingredients &&
+                        <div className={`${viewStyles.listDivs}`}>
+                            <h4 className={`${viewStyles.sectionHeadings}`}>Ingredients</h4>
+                            <ul className={`${viewStyles.ingredients} m-lg-5 d-md-flex justify-content-between flex-wrap`}>
+                                {ingredients.map((ingredient, index) => <li className={`${viewStyles.listItems} col-md-5`} key={index}>{ingredient}</li>)}
+                            </ul>
+                        </div>
+                    }
+                    {instructions &&
+                        <div className={`${viewStyles.listDivs}`}>
+                            <h4 className={`${viewStyles.sectionHeadings}`}>Instructions</h4>
+                            <ol>
+                                {instructions.map((instruction, index) => <li className={`${viewStyles.listItems}`} key={index}>{instruction}</li>)}
+                            </ol>
+                        </div>
+                    }
+                </div>
 
             }
         </>

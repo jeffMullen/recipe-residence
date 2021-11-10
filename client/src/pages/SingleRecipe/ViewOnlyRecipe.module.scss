@@ -1,0 +1,31 @@
+.recipe {
+    max-width: 1200px;
+    background: linear-gradient(white, white) padding-box,
+    linear-gradient(#FFE2AD, orange, rgb(255, 89, 0)) border-box;
+    border: 2px solid transparent;
+    .totalTime {
+        font-size: .8rem;
+        font-style: italic;
+    }
+    .authorTag {
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+    .sectionHeadings,
+    .listDivs {
+        padding-bottom: 15px;
+    }
+    .restrictions,
+    .ingredients {
+        list-style: none;
+    }
+    .listItems {
+        padding-bottom:5px;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .recipe {
+        width: 80%;
+    }
+}
