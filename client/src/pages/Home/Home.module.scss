@@ -23,10 +23,12 @@
                 .searchField {
                     width: 90%;
                     background: #F7C4B6;
+                    background: #FFDB99;
                     border: 1px solid black;
                     transition: .5s;
                     &:focus {
                         background: #FBE1DA;
+                        background: #FFD485;
                         outline: none;
                         box-shadow: none;
                         border: 1px solid black;

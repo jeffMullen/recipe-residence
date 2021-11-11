@@ -16,9 +16,11 @@ function Profile() {
 
     return (
         <>
-            <div className="profile-page container mt-5 d-flex flex-column align-items-center">
-                <div className={`${styles.row} row d-flex justify-content-center`}>
-                    {recipes.map(recipe => <RecipeCard key={recipe._id} recipe={recipe} showDelete={true}/>)}
+            <div className={`${styles.profilePage} profile-page container d-flex flex-column align-items-center`}>
+                <div className={`${styles.banner}`}></div>
+                <div className={`${styles.fade}`}></div>
+                <div className={`${styles.row} ${styles.recipes} row d-flex justify-content-center`}>
+                    {recipes.map(recipe => <RecipeCard key={recipe._id} recipe={recipe} showDelete={true} />)}
                 </div>
                 <div className={`${styles.row} row d-flex justify-content-center`}>
                     <CreateRecipe refetch={refetch} />

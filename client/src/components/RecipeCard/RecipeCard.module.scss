@@ -43,7 +43,21 @@
             }
         }
     }
-    .button {
+
+    .saveButton {
+        margin-top: 10px;
+        padding: 2px 10px;
+        background: white;
+        color: #198754;
+        border: 2px solid #198754;
+        transition: 0.2s;
+        &:hover {
+            background: #198754;
+            color: white;
+        }
+    }
+
+    .deleteButton {
         margin-top: 10px;
         padding: 2px 10px;
         background: white;

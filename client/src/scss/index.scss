@@ -6,6 +6,21 @@ $nav-height: 56px;
 
 $container-padding-x: 0px;
 
+// Modal Variable Re-Definitions
+$modal-content-bg: rgba(0, 0, 0, 0.756);
+$modal-header-border-color: rgb(140, 130, 130);
+$nav-pills-border-radius: 1px;
+$nav-pills-link-active-color: white;
+$nav-pills-link-active-bg: orange;
+$nav-link-padding-y: .25rem;
+$nav-link-padding-x: .75rem;
+$nav-link-color: white;
+$nav-link-hover-color: white;
+$form-label-color:  white;
+$btn-border-radius: 0;
+$success: orange;
+// $modal-dialog-margin: 1rem;
+
 @import '~bootstrap/scss/bootstrap.scss';
 
 * {
@@ -35,7 +50,7 @@ body::-webkit-scrollbar {
 .App-header {
     height: $nav-height;
     position: relative;
-    z-index: 1;
+    z-index: 100;
     font-weight: 500;
 
 }

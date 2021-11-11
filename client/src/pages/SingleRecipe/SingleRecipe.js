@@ -19,7 +19,7 @@ const SingleRecipe = () => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     //QUERIES AND MUTATIONS
-    const { loading, data, refetch } = useQuery(GET_SINGLE_RECIPE, { variables: { recipeId }, /* fetchPolicy: "network-only" */});
+    const { loading, data, refetch } = useQuery(GET_SINGLE_RECIPE, { variables: { recipeId }, /* fetchPolicy: "network-only" */ });
     const [updateRecipe, { error, data: updateData }] = useMutation(UPDATE_RECIPE, token);
 
     //DATA FROM RECIPE DATABASE
@@ -134,7 +134,7 @@ const SingleRecipe = () => {
     }
 
     // Get user data for Admin validation and saved_recipes
-    const { loading: getMeLoading, data: getMeData } = useQuery(GET_ME, {fetchPolicy:"network-only"});
+    const { loading: getMeLoading, data: getMeData } = useQuery(GET_ME, { fetchPolicy: "network-only" });
     console.log(getMeData);
 
     // Set user's saved recipes to variable
@@ -187,7 +187,7 @@ const SingleRecipe = () => {
         <>
             {Auth.loggedIn() && admin && !viewOnly ?
                 // If logged in and recipe is saved in user's collection render a recipe that can be updated
-                <div className={`${styles.recipe} my-3 mx-3 p-4 px-md-5`}>
+                <div className={`${styles.recipe} mx-3 p-4 px-md-5`}>
 
                     <form>
                         <div className={`${styles.inputDiv} mt-4 mt-md-5 d-flex flex-column col-12`}>
@@ -263,7 +263,7 @@ const SingleRecipe = () => {
                                 <ul className={styles.dietaryRestrictions}>
                                     {restrictions.map((restriction, index) =>
                                         <div key={index}
-                                            className={`col-6 col-sm-4 col-md-3 d-flex  justify-content-between flex-wrap`}>
+                                            className={`mb-3 col-6 col-sm-4 col-md-3 d-flex  justify-content-between flex-wrap`}>
                                             <li className={styles.listItem} name="dietaryRestrictions" value={restriction}>{restriction}</li>
                                             <button
                                                 className={styles.deleteButton}
@@ -295,10 +295,10 @@ const SingleRecipe = () => {
                                 <ul>
                                     {recipeIngredients.map((ingredient, index) =>
                                         <div key={index}
-                                            className={`col-6 col-sm-4 col-md-3 d-flex  justify-content-between flex-wrap`}>
-                                            <li className={`${styles.listItem} col-6`} name="ingredients" value={ingredient}>{ingredient}</li>
+                                            className={`col-6 col-sm-4 col-md-3 mb-3 d-flex  justify-content-between flex-wrap`}>
+                                            <li className={`${styles.listItem} col-6 col-md-3`} name="ingredients" value={ingredient}>{ingredient}</li>
                                             <button
-                                                className={`${styles.deleteButton} col-6`}
+                                                className={`${styles.deleteButton} col-6 col-md-3`}
                                                 onClick={(e) => {
 
                                                     handleDelete(e, e.target.previousSibling)
@@ -332,10 +332,12 @@ const SingleRecipe = () => {
                                 <ol>
                                     {recipeInstructions.map((instruction, index) =>
                                         <div key={index}
-                                            className={`col-6 col-sm-4 col-md-3 d-flex justify-content-between flex-wrap`}>
-                                            <li name="instructions" value={instruction}>{instruction}</li>
+                                            className={`mb-3 col-12 d-flex justify-content-between flex-wrap`}>
+                                            <li
+                                                className={`col-11`}
+                                                name="instructions" value={instruction}>{instruction}</li>
                                             <button
-                                                className={styles.deleteButton}
+                                                className={`${styles.deleteButton}`}
                                                 onClick={(e) => {
 
                                                     handleDelete(e, e.target.previousSibling)
@@ -377,7 +379,7 @@ const SingleRecipe = () => {
 
                 :
                 // If not the author, render un-editable recipe
-                <div className={`${viewStyles.recipe} p-3 p-md-5 my-3 mx-3`}>
+                <div className={`${viewStyles.recipe} p-3 p-md-5 mx-3`}>
                     <h3 className={`${viewStyles.title}`}>
                         {title}
                     </h3>
@@ -395,8 +397,8 @@ const SingleRecipe = () => {
                     {dietary_restrictions &&
                         <div className={`${viewStyles.listDivs}`}>
                             <h4 className={`${viewStyles.sectionHeadings}`}>Dietary Restrictions</h4>
-                            <ul className={`${viewStyles.restrictions} d-flex justify-content-around`}>
-                                {dietary_restrictions.map((restriction, index) => <li className={`${viewStyles.listItems}`} key={index}>- {restriction}</li>)}
+                            <ul className={`${viewStyles.restrictions} d-flex justify-content-between flex-wrap`}>
+                                {dietary_restrictions.map((restriction, index) => <li className={`${viewStyles.listItems} col-12 col-md-6 `} key={index}>- {restriction}</li>)}
                             </ul>
                         </div>
                     }

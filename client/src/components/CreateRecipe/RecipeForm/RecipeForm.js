@@ -180,19 +180,21 @@ function RecipeForm({ formData, setFormData, refetch }) {
                     </div>
                     <div className={`${styles.inputDiv} my-4 my-md-5 d-flex flex-column col-12`}>
                         <label htmlFor="instructions" className={`${styles.inputLabel} form-label mb-3`}>Instructions</label>
-                        <div className={`d-flex flex-column flex-md-row align-items-md-center`}>
-                            <textarea
-                                className={`${styles.instructionsField}`}
-                                id="instructions"
-                                name="instructions"
-                                aria-describedby=""></textarea>
-                            <button
-                                className={`${styles.button} ${styles.instructionsButton}`}
-                                onClick={(e) => {
-                                    addItem(e, e.target.previousSibling);
-                                    e.target.previousSibling.value = '';
-                                }}
-                            >Add Instruction</button>
+                        <div>
+                            <div className={`d-flex flex-column flex-md-row align-items-md-center`}>
+                                <textarea
+                                    className={`${styles.instructionsField}`}
+                                    id="instructions"
+                                    name="instructions"
+                                    aria-describedby=""></textarea>
+                                <button
+                                    className={`${styles.button} ${styles.instructionsButton}`}
+                                    onClick={(e) => {
+                                        addItem(e, e.target.previousSibling);
+                                        e.target.previousSibling.value = '';
+                                    }}
+                                >Add Instruction</button>
+                            </div>
                             {instructions &&
                                 <ol className={`mt-4`}>
                                     {instructions.map((instruction, index) =>

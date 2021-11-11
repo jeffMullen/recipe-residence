@@ -26,14 +26,9 @@ function RecipeCard({ recipe, showDelete, showSave, viewOnly }) {
     return (
         <>
             <div className={`${styles.cardContainer} col-12 col-sm-6 col-md-4 col-lg-3 pb-5`}>
-                {viewSave ? <button
-                    onClick={() => {
-                        saveToCollection(recipe);
-                        setViewSave(false);
-                    }}>Save To Collection</button> : ""}
                 <Link
                     className={`${styles.recipeLink}`}
-                    to={`/recipes/${recipe._id}${viewOnly?"?view":""}`}>
+                    to={`/recipes/${recipe._id}${viewOnly ? "?view" : ""}`}>
                     <div className={`${styles.recipeCard} card`}>
                         <div className={`${styles.recipeImgContainer}`}>
                             <img src={recipeImg} className={`${styles.recipeImg} card-img-top`} alt="..."></img>
@@ -56,8 +51,14 @@ function RecipeCard({ recipe, showDelete, showSave, viewOnly }) {
                         </div>
                     </div>
                 </Link>
+                {viewSave ? <button
+                    className={`${styles.saveButton}`}
+                    onClick={() => {
+                        saveToCollection(recipe);
+                        setViewSave(false);
+                    }}>Save To Collection</button> : ""}
                 {showDelete ? <button
-                    className={`${styles.button}`}
+                    className={`${styles.deleteButton}`}
                     onClick={() => deleteRecipe(recipe._id)}>Remove</button> : ""}
             </div>
         </>
