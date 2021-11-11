@@ -20,22 +20,36 @@ function Navigation() {
             <Navbar className={styles.navbarApp} collapseOnSelect expand="lg" variant="light">
                 <Container>
                     <Navbar.Brand className={styles.navbarBrand}>Recipe Repo</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Toggle
+                        className={`${styles.button}`}
+                        aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
-                        <Nav className='ml-auto'>
+                        <Nav className={`${styles.nav} ml-auto`}>
                             {/* if user is logged in show saved books and logout */}
                             {Auth.loggedIn() ? (
                                 <>
-                                    <Nav.Link as={Link} to='/'>
+                                    <Nav.Link
+                                        className={`${styles.nav}`}
+                                        as={Link} to='/'>
                                         Home
                                     </Nav.Link>
-                                    <Nav.Link as={Link} to='/profile'>
+                                    <Nav.Link
+                                        className={`${styles.nav}`}
+                                        as={Link} to='/profile'>
                                         My Recipes
                                     </Nav.Link>
-                                    <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
+                                    <Nav.Link
+                                        className={`${styles.nav}`}
+                                        onClick={Auth.logout}>Logout</Nav.Link>
                                 </>
                             ) : (
-                                <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
+                                <>
+                                    <Nav.Link
+                                        className={`${styles.nav}`}>Home</Nav.Link>
+                                    <Nav.Link
+                                        className={`${styles.nav}`}
+                                        onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
+                                </>
                             )}
                         </Nav>
                     </Navbar.Collapse>
