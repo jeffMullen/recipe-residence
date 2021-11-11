@@ -187,57 +187,83 @@ const SingleRecipe = () => {
         <>
             {Auth.loggedIn() && admin && !viewOnly ?
                 // If logged in and recipe is saved in user's collection render a recipe that can be updated
-                <div className={`${styles.recipe} my-3 mx-3 p-4 p-md-5`}>
+                <div className={`${styles.recipe} my-3 mx-3 p-4 px-md-5`}>
+
                     <form>
-                        <div>
+                        <div className={`${styles.inputDiv} mt-4 mt-md-5 d-flex flex-column col-12`}>
+                            <p className={`${styles.totalTime}`}>
+                                <span
+                                    className={`${styles.headings}`}>Author</span>
+                                {author}
+                            </p>
+                        </div>
+                        <div className={`${styles.inputDiv} mb-4 mb-md-5 d-flex flex-column col-12`}>
                             {recipeTitle &&
-                                <h2>
+
+                                <p className={`${styles.totalTime}`}>
+                                    <span
+                                        className={`${styles.headings}`}>Title</span>
                                     {recipeTitle}
-                                </h2>}
+                                </p>}
+
                             <div>
-                                <input id="title" name="title" aria-describedby=""></input>
-                                <button onClick={(e) => {
-                                    handleInputChange(e, e.target.previousSibling)
-                                    e.target.previousSibling.value = '';
-                                }}>
+                                <input
+                                    className={`${styles.inputField}`} id="title" name="title" aria-describedby=""></input>
+                                <button
+                                    className={`${styles.button}`}
+                                    onClick={(e) => {
+                                        handleInputChange(e, e.target.previousSibling)
+                                        e.target.previousSibling.value = '';
+                                    }}>
                                     Change
                                 </button>
                             </div>
                         </div>
-                        <div>
-                            <p>{totalTime}</p>
+
+                        <div className={`${styles.inputDiv} my-4 my-md-5 d-flex flex-column col-12`}>
+                            <p className={`${styles.totalTime}`}>
+                                <span
+                                    className={`${styles.headings}`}>Total Time</span>
+                                {totalTime}</p>
                             <div>
-                                <input id="totalTime" name="totalTime" aria-describedby=""></input>
-                                <button onClick={(e) => {
-                                    handleInputChange(e, e.target.previousSibling)
-                                    e.target.previousSibling.value = '';
-                                }}>
+                                <input
+                                    className={`${styles.inputField}`} id="totalTime" name="totalTime" aria-describedby=""></input>
+                                <button
+                                    className={`${styles.button}`}
+                                    onClick={(e) => {
+                                        handleInputChange(e, e.target.previousSibling)
+                                        e.target.previousSibling.value = '';
+                                    }}>
                                     Change
                                 </button>
                             </div>
                         </div>
-                        <Link to={`/profiles/${author}`}>
-                            {author}
-                        </Link>
-                        <div>
-                            <p>{recipeDescription}</p>
+
+                        <div className={`${styles.inputDiv} my-4 my-md-5 d-flex flex-column col-12`}>
+                            <p className={`${styles.totalTime}`}>
+                                <span
+                                    className={`${styles.headings}`}>Description</span>
+                                {recipeDescription}</p>
                             <div>
-                                <input id="description" name="description" aria-describedby=""></input>
-                                <button onClick={(e) => {
-                                    handleInputChange(e, e.target.previousSibling)
-                                    e.target.previousSibling.value = '';
-                                }}>
+                                <input
+                                    className={`${styles.inputField}`} id="description" name="description" aria-describedby=""></input>
+                                <button
+                                    className={`${styles.button}`}
+                                    onClick={(e) => {
+                                        handleInputChange(e, e.target.previousSibling)
+                                        e.target.previousSibling.value = '';
+                                    }}>
                                     Change
                                 </button>
                             </div>
                         </div>
                         {restrictions ?
-                            <div>
+                            <div className={`${styles.inputDiv} my-4 my-md-5 d-flex flex-column col-12`}>
                                 <h3>Dietary Restrictions</h3>
                                 <ul className={styles.dietaryRestrictions}>
                                     {restrictions.map((restriction, index) =>
                                         <div key={index}
-                                            className={`${styles.listItemContainer}`}>
+                                            className={`col-6 col-sm-4 col-md-3 d-flex  justify-content-between flex-wrap`}>
                                             <li className={styles.listItem} name="dietaryRestrictions" value={restriction}>{restriction}</li>
                                             <button
                                                 className={styles.deleteButton}
@@ -248,7 +274,8 @@ const SingleRecipe = () => {
                                         </div>
                                     )}
                                 </ul>
-                                <div id="dietaryRestrictions">
+                                <div id="dietaryRestrictions"
+                                    className={`${styles.dietaryRestrictions} col-12 d-flex justify-content-around flex-wrap`}>
 
                                     {dietaryRestrictions.map((restriction, index) =>
                                         <Checkbox
@@ -263,15 +290,15 @@ const SingleRecipe = () => {
                             <div></div>
                         }
                         {recipeIngredients ?
-                            <div>
+                            <div className={`${styles.inputDiv} my-4 my-md-5 d-flex flex-column col-12`}>
                                 <h3>Ingredients</h3>
                                 <ul>
                                     {recipeIngredients.map((ingredient, index) =>
                                         <div key={index}
-                                            className={styles.listItemContainer}>
-                                            <li className={styles.listItem} name="ingredients" value={ingredient}>{ingredient}</li>
+                                            className={`col-6 col-sm-4 col-md-3 d-flex  justify-content-between flex-wrap`}>
+                                            <li className={`${styles.listItem} col-6`} name="ingredients" value={ingredient}>{ingredient}</li>
                                             <button
-                                                className={styles.deleteButton}
+                                                className={`${styles.deleteButton} col-6`}
                                                 onClick={(e) => {
 
                                                     handleDelete(e, e.target.previousSibling)
@@ -280,15 +307,16 @@ const SingleRecipe = () => {
                                     )}
                                 </ul>
                                 <div>
-                                    <label htmlFor="ingredients" className="form-label">Ingredients</label>
                                     <input
+                                        className={`${styles.inputField}`}
                                         id="ingredients" name="ingredients" aria-describedby=""></input>
                                     <button
+                                        className={`${styles.button}`}
                                         onClick={(e) => {
                                             addItem(e, e.target.previousSibling);
                                             e.target.previousSibling.value = '';
                                         }}
-                                    >Add</button>
+                                    >Add Ingredient</button>
                                 </div>
                             </div>
 
@@ -299,13 +327,13 @@ const SingleRecipe = () => {
 
                         }
                         {recipeInstructions ?
-                            <div>
+                            <div className={`${styles.inputDiv} my-4 my-md-5 d-flex flex-column col-12`}>
                                 <h3>Instructions</h3>
                                 <ol>
                                     {recipeInstructions.map((instruction, index) =>
                                         <div key={index}
-                                            className={styles.listItemContainer}>
-                                            <li className={styles.listItem} name="instructions" value={instruction}>{instruction}</li>
+                                            className={`col-6 col-sm-4 col-md-3 d-flex justify-content-between flex-wrap`}>
+                                            <li name="instructions" value={instruction}>{instruction}</li>
                                             <button
                                                 className={styles.deleteButton}
                                                 onClick={(e) => {
@@ -317,15 +345,16 @@ const SingleRecipe = () => {
                                         </div>
                                     )}
                                 </ol>
-                                <div>
-                                    <label htmlFor="instructions" className="form-label">Instructions</label>
-                                    <input
-                                        id="instructions" name="instructions" aria-describedby=""></input>
+                                <div className={`d-flex flex-column flex-md-row align-items-md-center`}>
+                                    <textarea
+                                        className={`${styles.instructionsField}`}
+                                        id="instructions" name="instructions" aria-describedby=""></textarea>
                                     <button
+                                        className={`${styles.button} ${styles.instructionsButton}`}
                                         onClick={(e) => {
                                             addItem(e, e.target.previousSibling);
                                             e.target.previousSibling.value = '';
-                                        }}>Add</button>
+                                        }}>Add Instruction</button>
                                 </div>
                             </div>
 
@@ -334,11 +363,13 @@ const SingleRecipe = () => {
                             <div></div>
 
                         }
-                        <button onClick={(e) => {
-                            e.preventDefault();
-                            handleUpdateRecipe();
-                            window.location.assign("/profile");
-                        }}
+                        <button
+                            className={`${styles.submit}`}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                handleUpdateRecipe();
+                                window.location.assign("/profile");
+                            }}
                             type="submit"
                         >Submit Updated Recipe</button>
                     </form>
