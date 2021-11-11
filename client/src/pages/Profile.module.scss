@@ -1,4 +1,57 @@
+.profilePage {
+    margin: 0;
+    position: relative;
+    // width: 100vw;
+}
+
+.banner{
+    background-image: url('../images/profile-alt-alt.jpg');
+    background-position: center;
+    width: 100vw;
+    height: 50vh;
+    margin-top: -56px;
+    margin-bottom: 50px;
+    position: absolute;
+}
+
+.fade {
+    position: absolute;
+    z-index: 1;
+    width: 100vw;
+    height: 300px;
+    margin-top: -56px;
+    margin-bottom: 50px;
+}
+
+.recipes {
+    margin-top: 400px;
+}
+
 .row {
     width: 100%;
     max-width: 1000px;
+}
+
+@media screen and (min-width: 1920px) {
+    .banner {
+        background-size: cover;
+    }
+}
+
+@media screen and (min-height: 800px) {
+    .banner {
+        height: 40vh
+    }
+}
+
+@media screen and (min-height: 1000px) {
+    .banner {
+        height: 35vh
+    }
+}
+
+@media screen and (min-height: 1175px) {
+    .banner {
+        height: 30vh
+    }
 }
