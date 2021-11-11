@@ -1,7 +1,7 @@
 # recipe-residence
 
 * Deployment: [Recipe-Residence](https://desolate-atoll-16678.herokuapp.com/)
-* Demo Video: PLACEHOLDER
+* Demo Video: [Recipe-Residence Demo Video](https://watch.screencastify.com/v/cCKVhM2xgdSdDQoIH2Sv)
 
 # Description
 A site where users can post and view recipes that have been shared by other users or yourself.  There have been too many times where you made a meal months back and cant remember what you need or how much of it?  Well, look no further, your favorite recipes can now live on for future generations to enjoy!  Help put a stop to the unneccesarily bland food by adding and using amazing recipes in one convenient spot
