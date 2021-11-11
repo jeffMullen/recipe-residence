@@ -96,6 +96,7 @@ function Home() {
                             recipe={recipe}
                             showDelete={false}
                             showSave={() => compareRecipeIds(recipe._id)}
+                            viewOnly={true}
                         />)}
                     </div>
                 </div>
