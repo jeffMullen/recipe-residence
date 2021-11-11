@@ -26,7 +26,6 @@ function RecipeCard({ recipe, showDelete, showSave, viewOnly }) {
     return (
         <>
             <div className={`${styles.cardContainer} col-12 col-sm-6 col-md-4 col-lg-3 pb-5`}>
-                {showDelete ? <button onClick={() => deleteRecipe(recipe._id)}>Remove From Collection</button> : ""}
                 {viewSave ? <button
                     onClick={() => {
                         saveToCollection(recipe);
@@ -44,12 +43,12 @@ function RecipeCard({ recipe, showDelete, showSave, viewOnly }) {
                                 <h5 className="card-title">{title}</h5>
                                 <p>{total_time}</p>
                                 <p>{description}</p>
-                                {ingredients ?
-                                    <ul className="card-text">{ingredients.map((ingredient, index) => <li key={index}>{ingredient}</li>)}</ul>
-
-                                    :
-
-                                    null
+                                {ingredients &&
+                                    <ul className="card-text">{ingredients.map((ingredient, index) =>
+                                        <li
+                                            className={`${styles.listItem}`}
+                                            key={index}>{
+                                                ingredient}</li>)}</ul>
                                 }
                                 <p className="card-text">{instructions}</p>
                             </div>
@@ -57,6 +56,9 @@ function RecipeCard({ recipe, showDelete, showSave, viewOnly }) {
                         </div>
                     </div>
                 </Link>
+                {showDelete ? <button
+                    className={`${styles.button}`}
+                    onClick={() => deleteRecipe(recipe._id)}>Remove</button> : ""}
             </div>
         </>
     )
