@@ -379,7 +379,7 @@ const SingleRecipe = () => {
 
                 :
                 // If not the author, render un-editable recipe
-                <div className={`${viewStyles.recipe} p-3 p-md-5 my-3 mx-3`}>
+                <div className={`${viewStyles.recipe} p-3 p-md-5 mx-3`}>
                     <h3 className={`${viewStyles.title}`}>
                         {title}
                     </h3>

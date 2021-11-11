@@ -45,7 +45,8 @@ function Navigation() {
                             ) : (
                                 <>
                                     <Nav.Link
-                                        className={`${styles.nav}`}>Home</Nav.Link>
+                                        className={`${styles.nav}`}
+                                        as={Link} to='/'>Home</Nav.Link>
                                     <Nav.Link
                                         className={`${styles.nav}`}
                                         onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
@@ -56,13 +57,18 @@ function Navigation() {
                 </Container>
             </Navbar>
             <Modal
+
                 size='lg'
                 show={showModal}
                 onHide={() => setShowModal(false)}
                 aria-labelledby='signup-modal'>
                 {/* tab container to do either signup or login component */}
-                <Tab.Container defaultActiveKey='login'>
-                    <Modal.Header closeButton>
+                <Tab.Container
+
+                    defaultActiveKey='login'>
+                    <Modal.Header
+                        className={`${styles.modal}`}
+                        closeButton>
                         <Modal.Title id='signup-modal'>
                             <Nav variant='pills'>
                                 <Nav.Item>
