@@ -1,44 +1,58 @@
 .cardContainer {
     width: 300px;
-}
-
-.recipeLink {
-    padding: 0;
-    color: black;
-    text-decoration: none;
-    &:hover {
-        color:black;
-    }
-    .recipeCard {
-        height: 400px;
-        background: linear-gradient(white, white) padding-box,
-        linear-gradient(#FFE2AD, orange) border-box;
-        border: 1px solid transparent;
-        .recipeImgContainer {
-            height: 200px;
-            overflow: hidden;
-            .recipeImg {
-                object-position: 0px -70px;
+    .recipeLink {
+        padding: 0;
+        color: black;
+        text-decoration: none;
+        &:hover {
+            color:black;
+        }
+        .recipeCard {
+            height: 400px;
+            background: linear-gradient(white, white) padding-box,
+            linear-gradient(#FFE2AD, orange) border-box;
+            border: 1px solid transparent;
+            .recipeImgContainer {
+                height: 200px;
+                overflow: hidden;
+                .recipeImg {
+                    object-position: 0px -70px;
+                }
+            }
+            .cardBody {
+                height: 200px;
+                overflow: hidden;
+                position: relative;
+                padding: 0;
+                .recipeInfo {
+                    padding: 15px;
+                    position: absolute;
+                    z-index: 0;
+                }
+                .listItem {
+                    list-style-type: circle;
+                }
+                .fade {
+                    z-index: 100;
+                    position: absolute;
+                    height: 100%;
+                    width: 100%;
+                    background: linear-gradient(0deg, #E0E0E0,  rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
+                    border-radius: 3px;
+                }
             }
         }
-        .cardBody {
-            height: 200px;
-            overflow: hidden;
-            position: relative;
-            padding: 0;
-            .recipeInfo {
-                padding: 15px;
-                position: absolute;
-                z-index: 0;
-            }
-            .fade {
-                z-index: 100;
-                position: absolute;
-                height: 100%;
-                width: 100%;
-                background: linear-gradient(0deg, #E0E0E0,  rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
-                border-radius: 3px;
-            }
+    }
+    .button {
+        margin-top: 10px;
+        padding: 2px 10px;
+        background: white;
+        color: red;
+        border: 2px solid red;
+        transition: 0.2s;
+        &:hover {
+            background: red;
+            color: white;
         }
     }
 }
