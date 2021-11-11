@@ -7,7 +7,7 @@ import { REMOVE_RECIPE } from '../../utils/mutations.js';
 import { SAVE_RECIPE } from '../../utils/mutations.js';
 
 
-function RecipeCard({ recipe, showDelete, showSave }) {
+function RecipeCard({ recipe, showDelete, showSave, viewOnly }) {
 
     const { title, ingredients, description, instructions, total_time, link } = recipe;
     const [removeRecipe, { error, data }] = useMutation(REMOVE_RECIPE);
@@ -34,7 +34,7 @@ function RecipeCard({ recipe, showDelete, showSave }) {
                     }}>Save To Collection</button> : ""}
                 <Link
                     className={`${styles.recipeLink}`}
-                    to={`/recipes/${recipe._id}`}>
+                    to={`/recipes/${recipe._id}${viewOnly?"?view":""}`}>
                     <div className={`${styles.recipeCard} card`}>
                         <div className={`${styles.recipeImgContainer}`}>
                             <img src={recipeImg} className={`${styles.recipeImg} card-img-top`} alt="..."></img>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import Auth from '../../utils/auth';
 import dietaryRestrictions from '../../utils/dietaryRestrictions';
@@ -14,32 +14,26 @@ import { UPDATE_RECIPE } from '../../utils/mutations';
 const SingleRecipe = () => {
 
     const { recipeId } = useParams();
+    const { search } = useLocation();
+    console.log(search);
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     //QUERIES AND MUTATIONS
-    const { loading, data, refetch } = useQuery(GET_SINGLE_RECIPE, { variables: { recipeId }, });
+    const { loading, data, refetch } = useQuery(GET_SINGLE_RECIPE, { variables: { recipeId }, /* fetchPolicy: "network-only" */});
     const [updateRecipe, { error, data: updateData }] = useMutation(UPDATE_RECIPE, token);
 
+    //DATA FROM RECIPE DATABASE
     const recipe = data?.getSingleRecipe || {};
     const { _id, author, description, dietary_restrictions, total_time, title, instructions, ingredients } = recipe;
 
     //STATE VARIABLES
+    const [viewOnly, setViewOnly] = useState(search === "?view");
     const [recipeTitle, setRecipeTitle] = useState(title);
     const [totalTime, setTotalTime] = useState(total_time);
     const [recipeDescription, setRecipeDescription] = useState(description);
     const [recipeInstructions, setRecipeInstructions] = useState(instructions);
     const [recipeIngredients, setRecipeIngredients] = useState(ingredients);
     const [restrictions, setRestrictions] = useState(dietary_restrictions);
-
-    useEffect(() => {
-        setRecipeTitle(title);
-        setTotalTime(total_time);
-        setRecipeDescription(description);
-        setRecipeInstructions(instructions);
-        setRecipeIngredients(ingredients);
-        setRestrictions(dietary_restrictions);
-
-    }, [title, total_time, description, instructions, ingredients, dietary_restrictions]);
 
     // Delete items from arrays in state
     const handleDelete = (e, item) => {
@@ -139,13 +133,9 @@ const SingleRecipe = () => {
         }
     }
 
-    // Get user data for Admin validation
-    const { loading: getMeLoading, data: getMeData } = useQuery(GET_ME);
+    // Get user data for Admin validation and saved_recipes
+    const { loading: getMeLoading, data: getMeData } = useQuery(GET_ME, {fetchPolicy:"network-only"});
     console.log(getMeData);
-
-    if (getMeLoading) {
-        return <div>Loading...</div>
-    }
 
     // Set user's saved recipes to variable
     let savedRecipes = getMeData?.me?.saved_recipes;
@@ -153,29 +143,50 @@ const SingleRecipe = () => {
 
     let admin = false;
 
+    let userRecipe = {};
+
     // If logged in and current recipe ID matches a recipe ID in user saved_recipes: set admin priviledges to true
     if (Auth.loggedIn()) {
         const profile = Auth.getProfile().data._id;
         console.log('profile', profile)
-        if (savedRecipes !== undefined) {
+        if (savedRecipes !== undefined && !viewOnly) {
             savedRecipes.forEach(recipe => {
                 if (recipeId === recipe._id) {
                     console.log('MATCH');
+                    userRecipe = recipe;
                     admin = true;
                 }
             })
         }
     }
 
-    Auth.loggedIn() && admin ? console.log('ADMIN') : console.log('NO ACCESS');
+    useEffect(() => {
+        setRecipeTitle(userRecipe.title);
+        setTotalTime(userRecipe.total_time);
+        setRecipeDescription(userRecipe.description);
+        setRecipeInstructions(userRecipe.instructions);
+        setRecipeIngredients(userRecipe.ingredients);
+        setRestrictions(userRecipe.dietary_restrictions);
+
+    }, [userRecipe]);
+
+    console.log(title);
+
+    if (getMeLoading) {
+        return <div>Loading...</div>
+    }
+
+    Auth.loggedIn() && admin && !viewOnly ? console.log('ADMIN') : console.log('NO ACCESS');
+
+
 
     if (loading) {
         return <div>Loading...</div>;
     }
     return (
         <>
-            {Auth.loggedIn() && admin ?
-                // If logged in and recipe is authored by user, render a recipe that can be updated
+            {Auth.loggedIn() && admin && !viewOnly ?
+                // If logged in and recipe is saved in user's collection render a recipe that can be updated
                 <div className={`${styles.recipe} my-3 mx-3 p-4 p-md-5`}>
                     <form>
                         <div>
@@ -334,7 +345,6 @@ const SingleRecipe = () => {
                 </div>
 
                 :
-
                 // If not the author, render un-editable recipe
                 <div className={`${viewStyles.recipe} p-3 p-md-5 my-3 mx-3`}>
                     <h3 className={`${viewStyles.title}`}>

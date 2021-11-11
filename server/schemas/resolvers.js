@@ -68,6 +68,7 @@ const resolvers = {
 
     me: async (parent, args, context) => {
       if (context.user) {
+        console.log(context.user._id);
         return User.findOne({ _id: context.user._id });
       }
       throw new AuthenticationError('You need to be logged in!');
@@ -103,14 +104,16 @@ const resolvers = {
 
       console.log('IN RESOLVERS')
       if (context.user) {
-        const updatedRecipe = await Recipe.findOneAndUpdate(
-          { _id },
-          { ...recipe, _id },
-          { new: true }
-        );
 
+        if (author === context.user.username) {
+          const updatedRecipe = await Recipe.findOneAndUpdate(
+            { _id },
+            { ...recipe, _id },
+            { new: true }
+          );
+          console.log("RECIPE UPDATED BY AUTHOR", updatedRecipe)
+        }
 
-        console.log("RECIPE UPDATED -- BEFORE USER UPDATE", updatedRecipe)
 
         const newUser = await User.updateOne(
           {
@@ -136,8 +139,8 @@ const resolvers = {
         console.log('new user', newUser, context.user)
 
 
-        return updatedRecipe;
-
+        // return updatedRecipe;
+          return newUser;
 
       }
       throw new AuthenticationError('Not logged in');
@@ -152,7 +155,7 @@ const resolvers = {
           {
             $addToSet: { saved_recipes: recipe }
           },
-          {new: true}
+          { new: true }
         );
       }
       throw new AuthenticationError('Please log in to add a favorite recipe');

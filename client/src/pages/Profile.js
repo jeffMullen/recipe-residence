@@ -9,18 +9,16 @@ function Profile() {
 
     let [recipes, setRecipes] = useState([]);
 
-    const { loading, error, data, refetch } = useQuery(GET_ME);
+    const { loading, error, data, refetch } = useQuery(GET_ME, {fetchPolicy: "network-only"});
     const userData = data?.me || [];
-
     console.log(userData.saved_recipes);
-
     recipes = userData.saved_recipes || [];
 
     return (
         <>
             <div className="profile-page container mt-5 d-flex flex-column align-items-center">
                 <div className={`${styles.row} row d-flex justify-content-center`}>
-                    {recipes.map(recipe => <RecipeCard key={recipe._id} recipe={recipe} showDelete={true} />)}
+                    {recipes.map(recipe => <RecipeCard key={recipe._id} recipe={recipe} showDelete={true}/>)}
                 </div>
                 <div className={`${styles.row} row d-flex justify-content-center`}>
                     <CreateRecipe refetch={refetch} />
