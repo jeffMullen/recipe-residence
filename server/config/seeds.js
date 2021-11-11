@@ -73,22 +73,22 @@ db.once('open', async () => {
       total_time: '40 minutes',
       link: "https://www.cuisineaz.com/recettes/katsudon-102161.aspx"
     },
-    {
-      author: 'Branflakes',
-      title: "Low Sodium Mashed Potatoes",
-      ingredients: [
-        'Russet Potatoes - 2.5 lbs',
-        'Cream or Milk - 1/4 cup',
-        'Unsalted Butter - 1/4 cup',
-        'Nutritional Yeast -  3 tbsp',
-        'Sour Cream - 1 cup'
-      ],
-      description: "a creamy, low sodium mashed potatoes recipe that is sure to be something you'll favorite!",
-      instructions: "first, Peel, wash, and quarter the potatoes. Place the potatoes in a pot and cover with water.  Next, Bring potatoes to a boil over high heat. Reduce heat to medium and boil for about 20 minutes, or until potatoes are tender. Remove from water as soon as the potatoes are tender. (This prevents the potatoes from becoming water logged, which makes a huge difference in the creaminess of the potatoes.)  Then put the milk and butter in a microwave safe bowl or measuring cup. Heat until the mixture is warm and the butter is completely melted.  While the cream and butter are heating, mash the potatoes. (I used an old-school hand masher because overbeating potatoes can make them gummy.) Once mashed, add the hot cream and butter mixture and stir vigorously.  Finally, stir in the nutritional yeast and sour cream.",
-      total_time: "45 minutes",
-      dietary_restrictions: ['Low-Sodium'],
-      link: "https://www.sodiumoptional.com/mashed-potatoes/"
-    },
+    // {
+    //   author: 'Branflakes',
+    //   title: "Low Sodium Mashed Potatoes",
+    //   ingredients: [
+    //     'Russet Potatoes - 2.5 lbs',
+    //     'Cream or Milk - 1/4 cup',
+    //     'Unsalted Butter - 1/4 cup',
+    //     'Nutritional Yeast -  3 tbsp',
+    //     'Sour Cream - 1 cup'
+    //   ],
+    //   description: "a creamy, low sodium mashed potatoes recipe that is sure to be something you'll favorite!",
+    //   instructions: "first, Peel, wash, and quarter the potatoes. Place the potatoes in a pot and cover with water.  Next, Bring potatoes to a boil over high heat. Reduce heat to medium and boil for about 20 minutes, or until potatoes are tender. Remove from water as soon as the potatoes are tender. (This prevents the potatoes from becoming water logged, which makes a huge difference in the creaminess of the potatoes.)  Then put the milk and butter in a microwave safe bowl or measuring cup. Heat until the mixture is warm and the butter is completely melted.  While the cream and butter are heating, mash the potatoes. (I used an old-school hand masher because overbeating potatoes can make them gummy.) Once mashed, add the hot cream and butter mixture and stir vigorously.  Finally, stir in the nutritional yeast and sour cream.",
+    //   total_time: "45 minutes",
+    //   dietary_restrictions: ['Low-Sodium'],
+    //   link: "https://www.sodiumoptional.com/mashed-potatoes/"
+    // },
     {
       author: "Marlandis",
       title: "Inspiration Pizza",
